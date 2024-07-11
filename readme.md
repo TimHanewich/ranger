@@ -9,8 +9,8 @@
 - Status lights (WS2812B)
 - Voltage divider (for reading bat voltage)
     - Use a 47,000 ohm R1 resistor, 10,000 ohm R2 resistor, which divides it down to 17.54% of its actual voltage:
-    - Fully charged 4S LiPo = 16.8v, divided down to 2.947v
-    - Fully dead 4S LiPo = 12.8v, divided down to 2.246v
+    - Fully charged 4S LiPo = 16.8v, divided down to 2.947v (safe to be read on ADC pin)
+    - Fully dead 4S LiPo = 12.8v, divided down to 2.246v (safe to be read on ADC pin)
 
 ## How to set up a script to run on a Raspberry Pi (linux) on bootup:
 Open the crontab editor:
