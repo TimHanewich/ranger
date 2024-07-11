@@ -7,4 +7,4 @@
 - TT Motor
 - SG-90 Servo
 - Status lights (WS2812B)
-- Voltage sensor
+- Voltage divider (for reading bat voltage)
