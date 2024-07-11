@@ -23,3 +23,6 @@ Add a new cron job:
 In the above example, `usr/bin/python3/` is typically where Python is installed. Verify that before running this blindly...
 
 Save and exit! Next time you reboot, that script will be run.
+
+## How to capture images through USB web cam
+See [this repo](https://github.com/TimHanewich/Raspberry-Pi-Capturing-Images) on how to do that!
