@@ -37,3 +37,5 @@ Save and exit! Next time you reboot, that script will be run.
 
 ## How to capture images through USB web cam
 See [this repo](https://github.com/TimHanewich/Raspberry-Pi-Capturing-Images) on how to do that!
+
+## Notable Commits
