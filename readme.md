@@ -1,3 +1,10 @@
+# Ranger 
+**PROJECT UNFINISHED**
+
+A prototype, triple-deck, RC car, capable of going anywhere with cellular communications (phone tethered).
+
+![ranger](https://i.imgur.com/isdL1Wh.png)
+
 ## What will be onboard ranger?
 - Cell phone (for connectivity)
     - 81x170x13 mm
@@ -21,6 +28,9 @@
         - Fully charged 4S LiPo = 16.8v, divided down to 2.947v (safe to be read on ADC pin)
         - Fully dead 4S LiPo = 12.8v, divided down to 2.246v (safe to be read on ADC pin)
     - L293D motor driver
+
+## Design File
+Ranger's design file (Blender) can be downloaded [here](https://github.com/TimHanewich/ranger/releases/download/1/ranger7.blend).
 
 ## How to set up a script to run on a Raspberry Pi (linux) on bootup:
 Open the crontab editor:
