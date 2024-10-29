@@ -15,4 +15,7 @@ print("Complete!")
 print("Bytearray length of monochrome: " + str(len(ba)))
 
 b64:str = base64.b64encode(bytes(ba)).decode("utf-8")
+f = open("./drop.txt", "wt")
+f.write(b64)
+f.close()
 print(b64)
