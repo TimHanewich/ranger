@@ -41,13 +41,13 @@ The minimum resolution that can be captured on the Logitech C270 is 160x120 (160
 
 The full image capturing and transmitting process will be the following:
 1. Image is capture using fswebcam (saved locally to system).
-2. Python script uses PIL to loop through each pixel of the image and "average" each pixel into a single monochrome value.
+2. Python script uses PIL to loop through each pixel of the image and "average" each pixel into a single monochrome value. See example [here](https://i.imgur.com/dd0vRru.png).
 3. These monochrome byte values are added to a `bytearray`, which will total 19,200 bytes.
-4. Python converts this `bytearray` into a base64-encoded string. 
+4. Python converts this `bytearray` into a base64-encoded string using the `base64` module. 
 5. This base64-encoded string is posted as a message to Azure Queue Storage, included within a broader JSON object.
-6. This queue message is received and the JSON object is deserialized in the central command system (likely .NET-based).
+6. This queue message is received and the JSON object is deserialized in the central command system (likely .NET-based). See [this example](https://i.imgur.com/3s78G7d.png) on how to receive a Queue message in C#.
 7. The base64-encoded string is extracted from the JSON object and converted to `byte[]`.
-7. The central command system, written in .NET, uses `System.Drawing` to reconstruct the monochrome image, looping through each byte in the `byte[]` byte array and filling in each pixel one by one.
+7. The central command system, written in .NET, uses `System.Drawing` to reconstruct the monochrome image, looping through each byte in the `byte[]` byte array and filling in each pixel one by one. See [this example](https://i.imgur.com/DMnJx8f.png).
 8. The resulting image is saved and/or shown to the user of the central command system.
 
 ## How to set up a script to run on a Raspberry Pi (linux) on bootup:
