@@ -68,5 +68,8 @@ Save and exit! Next time you reboot, that script will be run.
 ## How to capture images through USB web cam
 See [this repo](https://github.com/TimHanewich/Raspberry-Pi-Capturing-Images) on how to do that!
 
+## Gear Designs
+- Gear config for drive-axle gear (gear that mounts to axle): https://i.imgur.com/AaAN82S.png
+
 ## Notable Commits
 - `f64b55bba3cd3c5fcbd638805026b2ee7ca7c1e0` - final commit before pivoting to smaller double-18650 battery pack (instead of 4S LiPo).
