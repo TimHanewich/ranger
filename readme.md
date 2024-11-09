@@ -80,5 +80,9 @@ See [this repo](https://github.com/TimHanewich/Raspberry-Pi-Capturing-Images) on
 - 105% motor shaft size is a bit too tight, but will do I think. Can shave down the inside a bit.
 - 106-107% motor shaft size is probably ideal, but can work with 105%
 
+## Servo Frame Designs
+- `servo_frame` has the cutout of the SG-90 servo exactly (no buffer)
+- `servo_frame_0.25mm` is where I pushed every "wall" that hugs the servo out 0.25mm (so combining both, 0.5mm of space). 
+
 ## Notable Commits
 - `f64b55bba3cd3c5fcbd638805026b2ee7ca7c1e0` - final commit before pivoting to smaller double-18650 battery pack (instead of 4S LiPo).
