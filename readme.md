@@ -12,15 +12,12 @@ A prototype, triple-deck, RC car, capable of going anywhere with cellular commun
     - 137x42x29 mm
 - LM2596 DC Voltage step down module
     - 44x22x12 mm
-- MPU-6050
-    - 16x21x4 mm
 - Raspberry Pi Zero W
     - 69x31x6 mm
 - TT Motor
     - *dimensions not needed - already accomodated for in design*
 - SG-90 Servo
     - *dimensions not needed - already accomodated for in design*
-- Status lights (WS2812B)
 - Perfboard
     - Dimensions: 40x40x2 mm?
     - Voltage divider (for reading bat voltage)
@@ -28,6 +25,9 @@ A prototype, triple-deck, RC car, capable of going anywhere with cellular commun
         - Fully charged 4S LiPo = 16.8v, divided down to 2.947v (safe to be read on ADC pin)
         - Fully dead 4S LiPo = 12.8v, divided down to 2.246v (safe to be read on ADC pin)
     - L293D motor driver
+- ~~Status lights (WS2812B)~~
+- ~~MPU-6050~~
+    - 16x21x4 mm
 
 ## Design File
 Ranger's design file (Blender) can be downloaded [here](https://github.com/TimHanewich/ranger/releases/download/1/ranger7.blend).
