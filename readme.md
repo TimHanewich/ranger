@@ -25,6 +25,7 @@ A prototype, triple-deck, RC car, capable of going anywhere with cellular commun
         - Fully charged 4S LiPo = 16.8v, divided down to 2.947v (safe to be read on ADC pin)
         - Fully dead 4S LiPo = 12.8v, divided down to 2.246v (safe to be read on ADC pin)
     - L293D motor driver
+- Logitech C270 Webcam
 - ~~Status lights (WS2812B)~~
 - ~~MPU-6050~~
     - 16x21x4 mm
