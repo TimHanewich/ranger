@@ -71,3 +71,12 @@ See [this repo](https://github.com/TimHanewich/Raspberry-Pi-Capturing-Images) on
 
 ## Notable Commits
 - `f64b55bba3cd3c5fcbd638805026b2ee7ca7c1e0` - final commit before pivoting to smaller double-18650 battery pack (instead of 4S LiPo).
+
+## Raspbian Lite Flash on Raspberry Pi Zero W on November 25, 2024
+Hostname: ranger.local
+Username: tim
+Password: rolling
+
+```
+ssh tim@ranger.local
+```
