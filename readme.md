@@ -86,4 +86,4 @@ ssh tim@ranger.local
 
 I designed a few iterations of the `base_center` part, each one with varying distances:
 - `base_center_v1` - what I started with, and what each next one is measured against.
-- `base_center_v2` - 1mm more space
+- `base_center_v2` - 1mm more space - **This seems to be right!**
