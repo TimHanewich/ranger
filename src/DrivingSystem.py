@@ -19,8 +19,8 @@ class DrivingSystem:
         GPIO.setup(settings.pin_drive1, GPIO.OUT)
 
         # setup PWM, using RPi.GPIO, for drive
-        self.i1 = GPIO.PWM(settings.gpio_drive_i1, 50)
-        self.i2 = GPIO.PWM(settings.gpio_drive_i2, 50)
+        self.i1 = GPIO.PWM(settings.pin_drive1, 50)
+        self.i2 = GPIO.PWM(settings.pin_drive1, 50)
         self.i1.start(0.0) # start at 0% duty cycle (no power)
         self.i2.start(0.0) # start at 0% duty cycle (no power)
 
@@ -34,10 +34,10 @@ class DrivingSystem:
     ############## DRIVE #################
 
     def enable_drive(self) -> None:
-        GPIO.output(settings.gpio_drive_safety, GPIO.HIGH)
+        GPIO.output(settings.pin_safety, GPIO.HIGH)
 
     def disable_drive(self) -> None:
-        GPIO.output(settings.gpio_drive_safety, GPIO.LOW)
+        GPIO.output(settings.pin_safety, GPIO.LOW)
     
     # provide power as float between -1.0 and 1.0
     def drive(self, power:float) -> None:
