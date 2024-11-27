@@ -6,7 +6,7 @@ import RPi.GPIO as GPIO # RPi.GPIO is used for driving (it is easy)
 import time
 import MovementCommand
 import settings
-import math
+from typing import Union
 
 class DrivingSystem:
 
@@ -62,11 +62,22 @@ class DrivingSystem:
 
     ############## HIGHER LEVEL #############
         
-    def execute(self, mc:MovementCommand.MovementCommand) -> None:
+    def execute(self, mcs:Union[MovementCommand.MovementCommand, list[MovementCommand.MovementCommand]]) -> None:
 
+        if isinstance(mcs, MovementCommand.MovementCommand):
+            self._execute(mc, True, True)
+        elif isinstance(mcs, list[MovementCommand.MovementCommand]):
+            for mc in mcs:
+                self._execute(mc, False, True)
+            self.drive(0.0) # now that every movement command is complete, now stop driving
+        else:
+            raise Exception("Type '" + str(type(mcs)) + "' of movement command(s) not understood!")
+
+    def _execute(self, mc:MovementCommand.MovementCommand, stop_at_end:bool = True, steering_pause:bool = True):
         # steer, then wait a moment
         self.steer(mc.steer)
-        time.sleep(0.25)
+        if steering_pause:
+            time.sleep(0.25)
 
         # accelerate up to full power smoothly. It can always be assumed that we are at 0% power (at a standstill) right now, so accelerate up from that.
         self.drive(mc.drive)
@@ -74,5 +85,6 @@ class DrivingSystem:
         # sleep (wait)
         time.sleep(mc.duration)
         
-        # stop driving
-        self.drive(0.0)
+        # stop driving?
+        if stop_at_end:
+            self.drive(0.0)
