@@ -1,4 +1,4 @@
-# Borrowed from my "PYPER X" project
+# Borrowed from my "PYPER X" project and customized for Ranger
 # Original code: https://raw.githubusercontent.com/TimHanewich/PYPER/refs/heads/master/derivatives/PYPER%20X/src/MovementCommand.py
 
 import json
@@ -8,6 +8,12 @@ class MovementCommand:
         self.drive:float = 0.0 # drive power, -1.0 to 1.0
         self.steer:float = 0.0 # steering angle, -1.0 to 1.0
         self.duration:float = 0.0 # time, in seconds
+
+    def __repr__(self):
+        return {"drive": self.drive, "steer": self.steer, "duration": self.duration}
+
+    def __str__(self):
+        return str(self.__repr__()) 
 
     def validate(self) -> str:
 
