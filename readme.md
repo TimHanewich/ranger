@@ -1,9 +1,5 @@
 # Ranger 
-**PROJECT UNFINISHED**
-
-A prototype, triple-deck, RC car, capable of going anywhere with cellular communications (phone tethered).
-
-![ranger](https://i.imgur.com/isdL1Wh.png)
+A prototype lang-range RC vehicle, communicating over the world wide web, from anywhere.
 
 ## What will be onboard ranger?
 - Cell phone (for connectivity)
@@ -29,9 +25,6 @@ A prototype, triple-deck, RC car, capable of going anywhere with cellular commun
 - ~~Status lights (WS2812B)~~
 - ~~MPU-6050~~
     - 16x21x4 mm
-
-## Design File
-Ranger's design file (Blender) can be downloaded [here](https://github.com/TimHanewich/ranger/releases/download/1/ranger7.blend).
 
 ## Communication Protocol
 Azure Queue Storage will be used for bidirectional communication between the rover and a central command system. Two queues will be used (existing within the same storage account) - one for sending commands from the central command system ("controller" in this relationship) to the car and one for sending messages from the car to the central command system.
