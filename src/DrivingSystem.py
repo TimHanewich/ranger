@@ -16,7 +16,7 @@ class DrivingSystem:
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(settings.pin_safety, GPIO.OUT)
         GPIO.setup(settings.pin_drive1, GPIO.OUT)
-        GPIO.setup(settings.pin_drive1, GPIO.OUT)
+        GPIO.setup(settings.pin_drive2, GPIO.OUT)
 
         # setup PWM, using RPi.GPIO, for drive
         self.i1 = GPIO.PWM(settings.pin_drive1, 50)
