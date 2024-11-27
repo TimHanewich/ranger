@@ -20,7 +20,7 @@ class DrivingSystem:
 
         # setup PWM, using RPi.GPIO, for drive
         self.i1 = GPIO.PWM(settings.pin_drive1, 50)
-        self.i2 = GPIO.PWM(settings.pin_drive1, 50)
+        self.i2 = GPIO.PWM(settings.pin_drive2, 50)
         self.i1.start(0.0) # start at 0% duty cycle (no power)
         self.i2.start(0.0) # start at 0% duty cycle (no power)
 
