@@ -64,64 +64,17 @@ class DrivingSystem:
 
     ############## HIGHER LEVEL #############
         
-    def execute(self, mc:MovementCommand.MovementCommand, stop_at_end:bool = True) -> None:
+    def execute(self, mc:MovementCommand.MovementCommand) -> None:
 
         # steer, then wait a moment
-        time_to_wait:float = 0.3
-        if self.__last_steer__ != mc.steer and self.__last_steer__ != None:
-            steer_distance:float = abs(mc.steer - self.__last_steer__)
-            time_to_wait:float = 0.05 * steer_distance
         self.steer(mc.steer)
-        time.sleep(time_to_wait)
+        time.sleep(0.25)
 
         # accelerate up to full power smoothly. It can always be assumed that we are at 0% power (at a standstill) right now, so accelerate up from that.
-        accelerate_segments:list[float] = accelerate_in_segments(mc.drive)
-        for power in accelerate_segments:
-            self.drive(power)
-            time.sleep(0.1)
+        self.drive(mc.drive)
 
+        # sleep (wait)
         time.sleep(mc.duration)
         
-        # decelerate smoothly
-        for x in range(len(accelerate_segments)):
-            ta:float = accelerate_segments[len(accelerate_segments) - x - 1]
-            self.drive(ta)
-            time.sleep(0.1)
-        
-        if stop_at_end:
-            self.drive(0.0) # stop driving
-
-
-
-def steer_in_segments(old_steer:float, new_steer:float) -> list[float]:
-    steer_distance = abs(new_steer - old_steer)
-    min_gapper:float = 0.15
-    jumps_needed:int = int(math.floor(steer_distance / min_gapper))
-    if jumps_needed > 0:
-        true_gapper:float = steer_distance / jumps_needed
-        if new_steer < old_steer:
-            true_gapper = true_gapper * -1
-        ToReturn:list[float] = []
-        for x in range(jumps_needed):
-            ToReturn.append(old_steer + (true_gapper * x))
-        ToReturn.append(new_steer)
-        ToReturn.pop(0)
-        return ToReturn
-    else:
-        return [new_steer]
-
-
-def accelerate_in_segments(power:float) -> list[float]:
-    min_gapper:float = 0.1
-    jumps_needed:int = int(abs(math.floor(power / min_gapper)))
-    print(jumps_needed)
-    if jumps_needed > 0:
-        true_gapper:float = power / jumps_needed
-        ToReturn:list[float] = []
-        for x in range(jumps_needed):
-            ToReturn.append(true_gapper * x)
-        ToReturn.pop(0)
-        ToReturn.append(power)
-        return ToReturn
-    else:
-        return [power]
+        # stop driving
+        self.drive(0.0)
