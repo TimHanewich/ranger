@@ -10,10 +10,7 @@ class MovementCommand:
         self.duration:float = 0.0 # time, in seconds
 
     def __repr__(self):
-        return {"drive": self.drive, "steer": self.steer, "duration": self.duration}
-
-    def __str__(self):
-        return str(self.__repr__()) 
+        return str({"drive": self.drive, "steer": self.steer, "duration": self.duration})
 
     def validate(self) -> str:
 
