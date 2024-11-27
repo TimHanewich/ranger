@@ -29,8 +29,7 @@ class DrivingSystem:
         self.pwm.set_mode(settings.pin_steering, pigpio.OUTPUT)
         self.pwm.set_PWM_frequency(settings.pin_steering, 50)
 
-        # internal variables to keep things smooth
-        self.__last_steer__:float = None
+
 
     ############## DRIVE #################
 
@@ -51,14 +50,13 @@ class DrivingSystem:
             self.i2.ChangeDutyCycle(power * -100)
 
 
-
+    
     ############ STEER ##################
     def steer(self, steer:float) -> None:
         s = max(min(steer, 1.0), -1.0) # constrain within bounds
         spercent:float = (s + 1) / 2.0
         width:int = int(500 + (spercent * (2500 - 500)))
         self.pwm.set_servo_pulsewidth(settings.pin_steering, width)
-
 
 
 
