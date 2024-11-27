@@ -80,3 +80,10 @@ Password: rolling
 ```
 ssh tim@ranger.local
 ```
+
+## Fixing Motor Gear to Drive Gear Tension
+`base_center` has the holes that the TT motor holder mounts into. Naturally, where these holes are are very important. I think I got it wrong in the first iteration - there is far too much tension, even possibly damaging the motors internal gears and causing it to malfunction (stall way too early).
+
+I designed a few iterations of the `base_center` part, each one with varying distances:
+- `base_center_v1` - what I started with, and what each next one is measured against.
+- `base_center_v2` - 1mm more space
