@@ -60,6 +60,15 @@ class DrivingSystem:
 
 
 
+    ######### CLEANUP #############
+    def cleanup(self) -> None:
+        """Turns off all PWM's and cleans up (releases control)"""
+        self.i1.stop()
+        self.i2.stop()
+        GPIO.cleanup()
+
+
+
     ############## HIGHER LEVEL #############
         
     def execute(self, mcs:Union[MovementCommand.MovementCommand, list[MovementCommand.MovementCommand]]) -> None:
