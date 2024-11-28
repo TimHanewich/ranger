@@ -29,8 +29,8 @@ namespace RangerCommand
             {
                 
                 //Authenticate to Azure Queue Storage
-                QueueClient qc = new QueueClient(GetAzureConnectionString(), "c2r");
-                AnsiConsole.Markup("Checking if queue '[blue]" + "c2r" + "[/]' exists... ");
+                QueueClient qc = new QueueClient(GetAzureConnectionString(), "r2c");
+                AnsiConsole.Markup("Checking if queue '[blue]" + "r2c" + "[/]' exists... ");
                 if (await qc.ExistsAsync())
                 {
                     AnsiConsole.MarkupLine("[green]it exists![/]");
@@ -38,8 +38,8 @@ namespace RangerCommand
                 else
                 {
                     AnsiConsole.MarkupLine("[yellow]it does not exist![/]");
-                    AnsiConsole.Markup("Creating queue '[blue]c2r[/]'... ");
-                    await qc.ExistsAsync();
+                    AnsiConsole.Markup("Creating queue '[blue]r2c[/]'... ");
+                    await qc.CreateAsync();
                     AnsiConsole.MarkupLine("[green]created[/]!");
                 }
 
@@ -47,7 +47,38 @@ namespace RangerCommand
                 AnsiConsole.Markup("Clearing messages in queue... ");
                 await qc.ClearMessagesAsync();
                 AnsiConsole.MarkupLine("[green]cleared![/]");
-                
+
+                //Infinitely read and show
+                while (true)
+                {
+                    QueueMessage qm = await qc.ReceiveMessageAsync(); //Try to read next message
+                    if (qm == null) //if there is no new message in the queue
+                    {
+                        DateTime TimeToCheckAgain = DateTime.UtcNow.AddSeconds(5);
+                        while (DateTime.UtcNow < TimeToCheckAgain)
+                        {
+                            TimeSpan TimeRemainingUntilNextCheck = TimeToCheckAgain - DateTime.UtcNow;
+                            Console.Write("\r" + new string(' ', Console.WindowWidth)); //clear out the line
+                            AnsiConsole.Markup("\r" + "No message found on last check. Checking again in [bold][blue]" + TimeRemainingUntilNextCheck.TotalSeconds.ToString("#,##0") + " seconds[/][/]... ");
+                            await Task.Delay(1000); //wait 1 second
+                        }
+                        Console.WriteLine(); //Go to next line
+                        Console.WriteLine(); //Make an empty line
+                    }
+                    else //There is a message in the queue! Read it!
+                    {
+                        string text = qm.Body.ToString();
+
+                        Console.WriteLine("Received: " + text);
+
+
+                        
+                        //Now that we processed the message, delete it
+                        AnsiConsole.Markup("Deleting message... ");
+                        await qc.DeleteMessageAsync(qm.MessageId, qm.PopReceipt);
+                        AnsiConsole.MarkupLine("[green]deleted![/]");
+                    }
+                }
             }
             else if (selected == "Send commands to Ranger")
             {
