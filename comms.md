@@ -18,6 +18,9 @@ The full image capturing and transmitting process will be the following:
 7. The central command system, written in .NET, uses `System.Drawing` to reconstruct the monochrome image, looping through each byte in the `byte[]` byte array and filling in each pixel one by one. See [this example](https://i.imgur.com/DMnJx8f.png).
 8. The resulting image is saved and/or shown to the user of the central command system.
 
+### Queue Names
+- `r2c` = "ranger to command", messages sent from the Ranger car to the computer.
+- `c2r` = "command to ranger", messages sent from the computer to the Ranger car.
 
 ## "Standard" data points that will be transfered in each data packet (Pi --> PC)
 The following data points will be transmitted from the Pi to the PC as part of *every* packet (not a "special" property that has to be requested, but rather always included).
