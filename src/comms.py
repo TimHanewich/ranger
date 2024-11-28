@@ -1,5 +1,6 @@
 import psutil
 import settings
+import json
 from azure.storage.queue import QueueServiceClient, QueueClient, QueueMessage, BinaryBase64DecodePolicy, BinaryBase64EncodePolicy
 
 def prepare() -> dict:
@@ -33,7 +34,7 @@ def send(msg:dict) -> None:
         qc.create_queue()
     except:
         pass
-    qc.send_message(str(msg))
+    qc.send_message(json.dumps(msg))
 
 msg = prepare()
 send(msg)
