@@ -49,6 +49,7 @@ namespace RangerCommand
                 AnsiConsole.MarkupLine("[green]cleared![/]");
 
                 //Infinitely read and show
+                Console.WriteLine();
                 while (true)
                 {
                     QueueMessage qm = await qc.ReceiveMessageAsync(); //Try to read next message
@@ -62,11 +63,12 @@ namespace RangerCommand
                             AnsiConsole.Markup("\r" + "No message found on last check. Checking again in [bold][blue]" + TimeRemainingUntilNextCheck.TotalSeconds.ToString("#,##0") + " seconds[/][/]... ");
                             await Task.Delay(1000); //wait 1 second
                         }
-                        Console.WriteLine(); //Go to next line
-                        Console.WriteLine(); //Make an empty line
                     }
                     else //There is a message in the queue! Read it!
                     {
+                        Console.WriteLine(); //Go to next line
+                        Console.WriteLine(); //Make an empty line
+
                         string text = qm.Body.ToString();
 
                         Console.WriteLine("Received: " + text);
@@ -95,7 +97,7 @@ namespace RangerCommand
 
         private static string GetAzureConnectionString()
         {
-            string PathToTxtFile = Path.Combine(Directory.GetCurrentDirectory(), "..", "azure_connection_string.txt");
+            string PathToTxtFile = Path.Combine(Directory.GetCurrentDirectory(), "azure_connection_string.txt");
             if (System.IO.File.Exists(PathToTxtFile) == false)
             {
                 throw new Exception("Unable to get Azure Storage Connection String! azure_connection_string.txt does not exist!");
