@@ -1,4 +1,6 @@
 import psutil
+import settings
+from azure.storage.queue import QueueServiceClient, QueueClient, QueueMessage, BinaryBase64DecodePolicy, BinaryBase64EncodePolicy
 
 def prepare() -> dict:
     """Prepares a return packet"""
@@ -24,5 +26,14 @@ def prepare() -> dict:
     return ToReturn
 
 
-d = prepare()
-print(d)
+def send(msg:dict) -> None:
+    """Sends a message via queue storage"""
+    qc = QueueClient.from_connection_string(settings.azure_storage_constr, "r2c")
+    try: # try to create. If it fails, it must already exist
+        qc.create_queue()
+    except:
+        pass
+    qc.send_message(str(msg))
+
+msg = prepare()
+send(msg)
