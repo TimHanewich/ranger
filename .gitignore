@@ -1,3 +1,4 @@
 3d/
 blender/
 __pycache__/
+*.sln
