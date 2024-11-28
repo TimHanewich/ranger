@@ -74,7 +74,7 @@ class DrivingSystem:
     def execute(self, mcs:Union[MovementCommand.MovementCommand, list[MovementCommand.MovementCommand]]) -> None:
 
         if isinstance(mcs, MovementCommand.MovementCommand):
-            self._execute(mc, True, True)
+            self._execute(mcs, True, True)
         elif isinstance(mcs, list[MovementCommand.MovementCommand]):
             for mc in mcs:
                 self._execute(mc, False, True)
