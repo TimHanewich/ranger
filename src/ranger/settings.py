@@ -6,3 +6,6 @@ pin_drive2:int = 13 # the second drive pin of the L293D. Can swap this around wi
 # SG-90 Servo for steering
 # use GPIO # here, not pin #, because pigpio, what we'll be using to run the steering, using the GPIO #
 gpio_steering:int = 23
+
+# SAS URL to Azure Storage Queue that will be used to send messages to
+azure_sas_url:str = ""
