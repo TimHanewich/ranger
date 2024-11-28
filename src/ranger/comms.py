@@ -29,9 +29,16 @@ def prepare() -> dict:
 
 def send(msg:dict) -> None:
     """Sends a message via queue storage"""
-    qc = QueueClient.from_connection_string(settings.azure_storage_constr, "r2c")
+    qc = QueueClient.from_connection_string(_getazconstr(), "r2c")
     try: # try to create. If it fails, it must already exist
         qc.create_queue()
     except:
         pass
     qc.send_message(json.dumps(msg))
+
+def _getazconstr() -> str:
+    f = open("../azure_connection_string.txt", "rt")
+    ToReturn:str = f.read()
+    f.close()
+    return ToReturn
+    
