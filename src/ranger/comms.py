@@ -42,7 +42,7 @@ def send(msg:dict) -> None:
         raise Exception("POST request to Azure Queue Service to upload message returned status code '" + str(response.status_code) + "', not the successful '201 CREATED'!")
 
 def _infer_r2c_sas_url() -> str:
-    """Infers the correct SAS URL to POST new messages to (to send a new message)."""
+    """Infers the correct SAS URL to POST new messages to (to send a new message), from the generic SAS URL we have in the settings."""
     ToReturn:str = settings.azure_queue_sas_url
     ToReturn = ToReturn.replace(".queue.core.windows.net/", ".queue.core.windows.net/r2c/messages")
     return ToReturn
