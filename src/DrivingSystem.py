@@ -26,8 +26,8 @@ class DrivingSystem:
 
         # setup pigpio for front steering (RPi.GPIO is not accurate enough in its timing to be stable: https://ben.akrin.com/raspberry-pi-servo-jitter/)
         self.pwm = pigpio.pi()
-        self.pwm.set_mode(settings.pin_steering, pigpio.OUTPUT)
-        self.pwm.set_PWM_frequency(settings.pin_steering, 50)
+        self.pwm.set_mode(settings.gpio_steering, pigpio.OUTPUT)
+        self.pwm.set_PWM_frequency(settings.gpio_steering, 50)
 
 
 
@@ -56,7 +56,7 @@ class DrivingSystem:
         s = max(min(steer, 1.0), -1.0) # constrain within bounds
         spercent:float = (s + 1) / 2.0
         width:int = int(500 + (spercent * (2500 - 500)))
-        self.pwm.set_servo_pulsewidth(settings.pin_steering, width)
+        self.pwm.set_servo_pulsewidth(settings.gpio_steering, width)
 
 
 
