@@ -1,7 +1,7 @@
 import psutil
 import settings
 import json
-from azure.storage.queue import QueueClient
+import requests
 
 def prepare() -> dict:
     """Prepares a return packet with the standard inclusions"""
@@ -29,16 +29,23 @@ def prepare() -> dict:
 
 def send(msg:dict) -> None:
     """Sends a message via queue storage"""
-    qc = QueueClient.from_connection_string(_getazconstr(), "r2c")
-    try: # try to create. If it fails, it must already exist
-        qc.create_queue()
-    except:
-        pass
-    qc.send_message(json.dumps(msg))
-
-def _getazconstr() -> str:
-    f = open("../azure_connection_string.txt", "rt")
-    ToReturn:str = f.read()
-    f.close()
-    return ToReturn
     
+    # construct body
+    body:str = "<QueueMessage><MessageText>" + json.dumps(msg) + "</MessageText></QueueMessage>"
+
+    # Make POST request
+    headers = {"Content-Type": "application/xml"}
+    response = requests.post(_infer_r2c_sas_url(), headers=headers, data=body)
+    
+    # handle code?
+    if response.status_code != 201:
+        raise Exception("POST request to Azure Queue Service to upload message returned status code '" + str(response.status_code) + "', not the successful '201 CREATED'!")
+
+def _infer_r2c_sas_url() -> str:
+    """Infers the correct SAS URL to POST new messages to (to send a new message)."""
+    ToReturn:str = settings.azure_queue_sas_url
+    ToReturn = ToReturn.replace(".queue.core.windows.net/", ".queue.core.windows.net/r2c/messages")
+    return ToReturn
+
+msg = prepare()
+send(msg)

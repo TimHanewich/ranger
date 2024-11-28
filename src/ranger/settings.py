@@ -8,4 +8,7 @@ pin_drive2:int = 13 # the second drive pin of the L293D. Can swap this around wi
 gpio_steering:int = 23
 
 # SAS URL to Azure Storage Queue that will be used to send messages to
-azure_sas_url:str = ""
+# insert here the normal SAS URL. Not with any specified queue name, those will be added programatically
+# when creating the SAS, you will be given a range of URL's for different services... blob, table, file, queue... make sure you copy and paste the **queue** URL, just as it is!
+# the specific URL for the "r2c" and "c2r" queues will be inferred (inserted into URL) later.
+azure_queue_sas_url:str = ""
