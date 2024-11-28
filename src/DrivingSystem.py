@@ -9,7 +9,6 @@ import settings
 from typing import Union
 
 class DrivingSystem:
-
     def __init__(self) -> None:
 
         # setup GPIO's for drive

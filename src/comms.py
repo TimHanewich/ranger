@@ -1,10 +1,10 @@
 import psutil
 import settings
 import json
-from azure.storage.queue import QueueServiceClient, QueueClient, QueueMessage, BinaryBase64DecodePolicy, BinaryBase64EncodePolicy
+from azure.storage.queue import QueueClient
 
 def prepare() -> dict:
-    """Prepares a return packet"""
+    """Prepares a return packet with the standard inclusions"""
 
     ToReturn:dict = {}
 
@@ -35,6 +35,3 @@ def send(msg:dict) -> None:
     except:
         pass
     qc.send_message(json.dumps(msg))
-
-msg = prepare()
-send(msg)
