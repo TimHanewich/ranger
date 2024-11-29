@@ -96,6 +96,8 @@ namespace RangerCommand
                             JProperty? prop_image = msg.Property("image");
                             if (prop_image != null)
                             {
+                                AnsiConsole.Markup("Reconstructing image... ");
+
                                 JObject image = (JObject)prop_image.Value;
 
                                 //Get base64
@@ -140,7 +142,7 @@ namespace RangerCommand
                                 bm.Save(@"C:\Users\timh\Downloads\tah\ranger\image.jpg");
 
                                 //Print that there was an image
-                                AnsiConsole.MarkupLine("Image unpacked!");
+                                AnsiConsole.MarkupLine("[green]image unpacked![/]");
                             }
 
                         }
