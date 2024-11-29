@@ -7,6 +7,10 @@ pin_drive2:int = 13 # the second drive pin of the L293D. Can swap this around wi
 # use GPIO # here, not pin #, because pigpio, what we'll be using to run the steering, using the GPIO #
 gpio_steering:int = 23
 
+# image capture command, using fswebcam
+# this is the command that should be used to capture an image
+capture_command:str = "fswebcam -d /dev/video0 -r 160x120 --skip 15 img.jpg"
+
 # SAS URL to Azure Storage Queue that will be used to send messages to
 # insert here the normal SAS URL. Not with any specified queue name, those will be added programatically
 # when creating the SAS, you will be given a range of URL's for different services... blob, table, file, queue... make sure you copy and paste the **queue** URL, just as it is!
