@@ -6,6 +6,8 @@ using Azure.Storage.Queues;
 using Azure.Storage.Queues.Models;
 using System.Threading.Tasks;
 using System.Drawing;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace RangerCommand
 {
@@ -71,11 +73,81 @@ namespace RangerCommand
                         Console.WriteLine(); //Go to next line
                         Console.WriteLine(); //Make an empty line
 
+                        //Read text and parse as JSON
                         string text = qm.Body.ToString();
+                        Console.WriteLine("Received body of length " + text.Length.ToString("#,##0") + " characters.");
 
-                        Console.WriteLine("Received: " + text);
+                        //Parse as JSON
+                        JObject? msg = null;
+                        try
+                        {
+                            msg = JObject.Parse(text);
+                        }
+                        catch
+                        {
+                            msg = null;
+                        }
+                        
+                        //If it was JSON, work with it. If not, show an error
+                        if (msg != null) //It was JSON! Work with it!
+                        {
+                            
+                            //Is there an "image" property?
+                            JProperty? prop_image = msg.Property("image");
+                            if (prop_image != null)
+                            {
+                                JObject image = (JObject)prop_image.Value;
 
+                                //Get base64
+                                string base64 = "";
+                                JProperty? prop_base64 = image.Property("base64");
+                                if (prop_base64 != null)
+                                {
+                                    base64 = prop_base64.Value.ToString();
+                                }
 
+                                //Get width
+                                int width = 0;
+                                JProperty? prop_width = image.Property("width");
+                                if (prop_width != null)
+                                {
+                                    width = Convert.ToInt32(prop_width.Value.ToString());
+                                }
+
+                                //Get height
+                                int height = 0;
+                                JProperty? prop_height = image.Property("height");
+                                if (prop_height != null)
+                                {
+                                    height = Convert.ToInt32(prop_height.Value.ToString());
+                                }
+
+                                //Reconstruct
+                                byte[] bytes = Convert.FromBase64String(base64);
+                                Bitmap bm = new Bitmap(width, height);
+                                int OnPixel = 0;
+                                for (int y = 0; y < 120; y++)
+                                {
+                                    for (int x = 0; x < 160; x++)
+                                    {
+                                        System.Drawing.Color c = System.Drawing.Color.FromArgb(255, bytes[OnPixel], bytes[OnPixel], bytes[OnPixel]);
+                                        bm.SetPixel(x, y, c);
+                                        OnPixel = OnPixel + 1;
+                                    }
+                                }
+
+                                //Save the image
+                                bm.Save(@"C:\Users\timh\Downloads\tah\ranger\image.jpg");
+
+                                //Print that there was an image
+                                AnsiConsole.MarkupLine("Image unpacked!");
+                            }
+
+                        }
+                        else //It did not parse into JSON correctly.
+                        {
+                            AnsiConsole.MarkupLine("[red]The message that was received was not successfully parsed into a JSON object.[/] Msg: " + text);
+                        }
                         
                         //Now that we processed the message, delete it
                         AnsiConsole.Markup("Deleting message... ");
