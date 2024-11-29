@@ -46,6 +46,3 @@ def _infer_r2c_sas_url() -> str:
     ToReturn:str = settings.azure_queue_sas_url
     ToReturn = ToReturn.replace(".queue.core.windows.net/", ".queue.core.windows.net/r2c/messages")
     return ToReturn
-
-msg = prepare()
-send(msg)
