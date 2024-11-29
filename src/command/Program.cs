@@ -22,6 +22,7 @@ namespace RangerCommand
             sp.Title("What do you want to do?");
             sp.AddChoice("Monitor, receive, and show incoming messages in the queue");
             sp.AddChoice("Send commands to Ranger");
+            sp.AddChoice("TEST");
             string selected = AnsiConsole.Prompt<string>(sp);
 
             //Handle what to do
@@ -85,6 +86,12 @@ namespace RangerCommand
             else if (selected == "Send commands to Ranger")
             {
                 Console.WriteLine("Not done yet.");
+            }
+            else if (selected == "TEST")
+            {
+                string b64 = System.IO.File.ReadAllText(@"C:\Users\timh\Downloads\tah\ranger\b64.txt");
+                byte[] bytes = Convert.FromBase64String(b64);
+                System.IO.File.WriteAllBytes(@"C:\Users\timh\Downloads\tah\ranger\image.jpg", bytes);
             }
             else
             {
