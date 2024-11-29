@@ -5,6 +5,7 @@ using Azure.Storage;
 using Azure.Storage.Queues;
 using Azure.Storage.Queues.Models;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace RangerCommand
 {
@@ -89,9 +90,25 @@ namespace RangerCommand
             }
             else if (selected == "TEST")
             {
+                //Read base64 and convert
                 string b64 = System.IO.File.ReadAllText(@"C:\Users\timh\Downloads\tah\ranger\b64.txt");
                 byte[] bytes = Convert.FromBase64String(b64);
-                System.IO.File.WriteAllBytes(@"C:\Users\timh\Downloads\tah\ranger\image.jpg", bytes);
+
+                //Reconstruct
+                Bitmap bm = new Bitmap(160, 120);
+                int OnPixel = 0;
+                for (int y = 0; y < 120; y++)
+                {
+                    for (int x = 0; x < 160; x++)
+                    {
+                        System.Drawing.Color c = System.Drawing.Color.FromArgb(255, bytes[OnPixel], bytes[OnPixel], bytes[OnPixel]);
+                        bm.SetPixel(x, y, c);
+                        OnPixel = OnPixel + 1;
+                    }
+                }
+
+                //Save
+                bm.Save(@"C:\Users\timh\Downloads\tah\ranger\image.jpg");
             }
             else
             {
