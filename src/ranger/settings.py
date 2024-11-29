@@ -9,7 +9,7 @@ gpio_steering:int = 23
 
 # image capture command, using fswebcam
 # this is the command that should be used to capture an image
-capture_command:str = "fswebcam -d /dev/video0 -r 160x120 --skip 15 img.jpg"
+capture_command:str = "fswebcam -d /dev/video0 -r 160x120 --no-banner --skip 15 img.jpg"
 
 # SAS URL to Azure Storage Queue that will be used to send messages to
 # insert here the normal SAS URL. Not with any specified queue name, those will be added programatically
