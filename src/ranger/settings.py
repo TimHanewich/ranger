@@ -1,3 +1,7 @@
+# PROGRAM SETTINGS
+pulse_frequency_seconds:int = 10 # Ranger will send an update every X seconds
+include_image:bool = True # include an image in each pulse (capture using onboard webcam)
+
 # TT motor driver pins (not GPIO's, pin #'s)
 pin_safety:int = 11 # the "safety" input of the L293D (top left) 
 pin_drive1:int = 15 # the first drive pin of the L293D. Can swap this around with drive2 according to whatever pattern gives the correct forward/backward drive.
