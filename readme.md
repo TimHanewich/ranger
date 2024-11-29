@@ -63,3 +63,9 @@ See [this video](https://www.youtube.com/watch?v=uOQk8SJso6Q) that describes ver
 Basically, a duty cycle of 1ms is 0%, 2ms is 100%. So you need to change the duty cycle from 1 to 2 ms to control the rotation, from 0-100%.
 
 At 50 hz (standard for a servo), the full cycle is 20ms. So, using the `PWM.ChangeDutyCycle()` function of the `RPi.GPIO` module, you need to set the duty cycle to between 5% and 10% of the 20ms... that will get you from between 1ms and 2ms!
+
+## Setting up a Raspberry Pi to run Ranger
+- `sudo apt update` & `sudo apt upgrade`
+- Install `tmux`
+- Install `fswebcam`: `sudo apt install fswebcam`
+- Install Python's `psutil`: `python3 -m pip install psutil`
