@@ -66,7 +66,7 @@ At 50 hz (standard for a servo), the full cycle is 20ms. So, using the `PWM.Chan
 
 ## Setting up a Raspberry Pi to run Ranger
 - `sudo apt update` & `sudo apt upgrade`
-- Install `tmux`
+- Install `tmux` *(optionally, for productivity)*
 - Install `fswebcam`: `sudo apt install fswebcam`
 - Create and activate a Python virtual environment to install the following Python packages:
     - Install Python's `psutil`: `python3 -m pip install psutil`
