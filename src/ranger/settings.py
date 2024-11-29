@@ -11,4 +11,5 @@ gpio_steering:int = 23
 # insert here the normal SAS URL. Not with any specified queue name, those will be added programatically
 # when creating the SAS, you will be given a range of URL's for different services... blob, table, file, queue... make sure you copy and paste the **queue** URL, just as it is!
 # the specific URL for the "r2c" and "c2r" queues will be inferred (inserted into URL) later.
+# example: https://rangercomms.queue.core.windows.net/?sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2024-11-29T06:13:43Z&st=2024-11-28T22:13:43Z&spr=https,http&sig=UPVdKL03ESjtDDoL6%2Bc61dfr4opELJ2CKZc0KzqrrY%3D
 azure_queue_sas_url:str = ""
