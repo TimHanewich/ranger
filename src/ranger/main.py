@@ -15,7 +15,7 @@ while True:
     if settings.include_image:
         print("Capturing image... ")
         b64:str = vision.capture()
-        imgdict:dict = {"b64": b64, "width": 160, "height": 120}
+        imgdict:dict = {"base64": b64, "width": 160, "height": 120}
         payload["image"] = imgdict
 
     # send
