@@ -128,9 +128,9 @@ namespace RangerCommand
                                 byte[] bytes = Convert.FromBase64String(base64);
                                 Bitmap bm = new Bitmap(width, height);
                                 int OnPixel = 0;
-                                for (int y = 0; y < 120; y++)
+                                for (int y = 0; y < height; y++)
                                 {
-                                    for (int x = 0; x < 160; x++)
+                                    for (int x = 0; x < width; x++)
                                     {
                                         System.Drawing.Color c = System.Drawing.Color.FromArgb(255, bytes[OnPixel], bytes[OnPixel], bytes[OnPixel]);
                                         bm.SetPixel(x, y, c);
