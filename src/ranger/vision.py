@@ -20,6 +20,7 @@ def capture2() -> str:
 
     # open as image
     img = Image.open("./img.jpg")
+    os.remove("./img.jpg") # delete the image
     width, height = img.size
 
     # get bytes
