@@ -68,6 +68,7 @@ At 50 hz (standard for a servo), the full cycle is 20ms. So, using the `PWM.Chan
 - `sudo apt update` & `sudo apt upgrade`
 - Install `tmux` *(optionally, for productivity)*
 - Install `fswebcam`: `sudo apt install fswebcam`
+- Install `libjpeg-dev`, a JPEG development library required for Python's `pillow`: `sudo apt-get install libjpeg-dev`
 - Create and activate a Python virtual environment to install the following Python packages:
     - Install Python's `psutil`: `python3 -m pip install psutil`
     - Install Python's `pillow` (`PIL`) library: `python3 -m pip install pillow`
