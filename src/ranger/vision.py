@@ -3,12 +3,18 @@ import os
 import settings
 from PIL import Image
 import base64
+import time
 
 def capture() -> str:
     """Makes a command line command to capture an image using fswebcam, converts it to grayscale, and returns the bytes of the image as base64"""
 
     # run command
     subprocess.run(settings.capture_command, shell=True, capture_output=True, text=True) # run the command
+    time.sleep(0.25)
+
+    # check if file exists
+    if os.path.exists("./img.jpg") == False:
+        raise Exception("File 'img.jpg' not found! Image capture must not have worked!")
 
     # open as image
     img = Image.open("./img.jpg")
