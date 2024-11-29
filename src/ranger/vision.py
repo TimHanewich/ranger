@@ -1,6 +1,8 @@
 import subprocess
 import os
 import settings
+from PIL import Image
+import base64
 
 def capture() -> bytes:
     """Makes a command line command to capture an image using fswebcam and returns the file content as bytes"""
@@ -9,3 +11,25 @@ def capture() -> bytes:
         file_content = file.read() # save the file content into memory
     os.remove("./img.jpg") # delete the file
     return file_content
+
+def capture2() -> str:
+    """Makes a command line command to capture an image using fswebcam, converts it to grayscale, and returns the bytes of the image as base64"""
+
+    # run command
+    subprocess.run(settings.capture_command, shell=True, capture_output=True, text=True) # run the command
+
+    # open as image
+    img = Image.open("./img.jpg")
+    width, height = img.size
+
+    # get bytes
+    ba:bytearray = bytearray()
+    for y in range(0, height):
+        for x in range(0, width):
+            r,g,b = img.getpixel((x, y))
+            avg:int = int((r + g + b) / 3)
+            ba.append(avg)
+    
+    # return as base64
+    b64:str = base64.b64encode(bytes(ba)).decode("utf-8")
+    return b64
