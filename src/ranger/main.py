@@ -88,9 +88,7 @@ def recv_loop() -> None:
             
             # get movement commands?
             if "move" in command:
-                move:dict = command["move"]
-                print("Move: " + str(move))
-                movement_commands:list[MovementCommand.MovementCommand] = MovementCommand.MovementCommand.parse(str(move))
+                movement_commands:list[MovementCommand.MovementCommand] = MovementCommand.MovementCommand.parse(str(json.dumps(command["move"])))
                 print("Got " + str(len(movement_commands)) + " movement commands!")
                 for mc in movement_commands:
                     print(str(mc))
