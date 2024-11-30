@@ -31,6 +31,9 @@ def send_loop() -> None:
         # add uptime
         payload["uptime"] = int(time.time() - program_began)
 
+        # add cmds
+        payload["cmds"] = cmds
+
         # capture image?
         if settings.include_image:
             print("SEND: Capturing image... ")
