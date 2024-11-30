@@ -8,7 +8,7 @@ import subprocess
 import io
 import os
 
-class VisionCaptureStream:
+class VisionCaptureService:
 
     def __init__(self):
         self.p = None
