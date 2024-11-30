@@ -55,7 +55,7 @@ def send_loop() -> None:
         # add uptime
         payload["uptime"] = int(time.time() - program_began)
 
-        # add cmds
+        # add cmds (number of commands that have been received)
         payload["cmds"] = cmds
 
         # capture image?
@@ -91,6 +91,7 @@ def recv_loop() -> None:
         msg:AzureQueue.QueueMessage = qs.receive()
         if msg != None:
             print("RECV: Message of length " + str(len(msg.MessageText)) + " received!")
+            cmds = cmds + 1
             
             # parse message text as json
             command:dict = None
