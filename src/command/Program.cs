@@ -53,6 +53,7 @@ namespace RangerCommand
                 AnsiConsole.MarkupLine("[green]cleared![/]");
 
                 //Infinitely read and show
+                DateTime? MessageLastReceivedAtUtc = null;
                 Console.WriteLine();
                 while (true)
                 {
@@ -62,14 +63,24 @@ namespace RangerCommand
                         DateTime TimeToCheckAgain = DateTime.UtcNow.AddSeconds(5);
                         while (DateTime.UtcNow < TimeToCheckAgain)
                         {
+                            //Calculate how long ago a message was last received
+                            string MsgLastReceivedTxt = "yet";
+                            if (MessageLastReceivedAtUtc.HasValue)
+                            {
+                                TimeSpan TimeSinceLastMessageReceived = DateTime.UtcNow - MessageLastReceivedAtUtc.Value;
+                                MsgLastReceivedTxt = "since " + TimeSinceLastMessageReceived.TotalSeconds.ToString("#,##0") + " seconds ago";
+                            }
+
+                            //Print
                             TimeSpan TimeRemainingUntilNextCheck = TimeToCheckAgain - DateTime.UtcNow;
                             Console.Write("\r" + new string(' ', Console.WindowWidth)); //clear out the line
-                            AnsiConsole.Markup("\r" + "No message found on last check. Checking again in [bold][blue]" + TimeRemainingUntilNextCheck.TotalSeconds.ToString("#,##0") + " seconds[/][/]... ");
+                            AnsiConsole.Markup("\r" + "No message found " + MsgLastReceivedTxt + ". Checking again in [bold][blue]" + TimeRemainingUntilNextCheck.TotalSeconds.ToString("#,##0") + " seconds[/][/]... ");
                             await Task.Delay(1000); //wait 1 second
                         }
                     }
                     else //There is a message in the queue! Read it!
                     {
+                        MessageLastReceivedAtUtc = DateTime.UtcNow;
                         Console.WriteLine(); //Go to next line
                         Console.WriteLine(); //Make an empty line
 
