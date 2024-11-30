@@ -162,8 +162,6 @@ namespace RangerCommand
         //Print the details of a received message into the console, unpacks the attached image, etc.
         private static void ProcessReceivedMessage(JObject msg)
         {
-            //Example standard payload: {'memp': 0.269, 'memu': 69828608, 'mema': 327864320, 'diska': 228248584192, 'bsent': 544165, 'brecv': 197279}
-
             //Get uptime
             JProperty? prop_uptime = msg.Property("uptime");
             if (prop_uptime != null)
