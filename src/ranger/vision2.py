@@ -14,13 +14,22 @@ class VisionCaptureStream:
         self.p = None
 
     def start_streaming(self) -> None:
-        self.p:subprocess.Popen = subprocess.Popen(['ffmpeg', '-video_size', '160x120', '-i', '/dev/video0', '-vf', 'fps=0.1', '-update', '1', './capture.jpg'], stdout=subprocess.DEVNULL, stderr = subprocess.DEVNULL)
+        if self.streaming() == False:
+            self.p:subprocess.Popen = subprocess.Popen(['ffmpeg', '-video_size', '160x120', '-i', '/dev/video0', '-vf', 'fps=0.1', '-update', '1', './capture.jpg'], stdout=subprocess.DEVNULL, stderr = subprocess.DEVNULL)
+
+    def streaming(self) -> bool:
+        """Checks if the stream is still going"""
+        if self.p == None:
+            return False
+        else:
+            return self.p.poll() == None # if poll returns none, it is still going. If it returns a status code, it is finished.
 
     def stop_streaming(self) -> None:
-        self.p.kill() # kill the process (stops ffmpeg)
-        if self.p.poll() != None:
-            raise Exception("ffmpeg stream process failed to shut down!")
-        self.p = None
+        if self.streaming() == True:
+            self.p.kill() # kill the process (stops ffmpeg)
+            if self.p.poll() != None:
+                raise Exception("ffmpeg stream process failed to shut down!")
+            self.p = None
 
     def latest_image(self) -> bytes:
         """Gets the bytes of the latest image"""
