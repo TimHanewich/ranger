@@ -161,8 +161,8 @@ namespace RangerCommand
                                 float duration = AnsiConsole.Ask<float>("Duration? (> 0.0)");
 
                                 //Min/Max
-                                drive = Convert.ToSingle(Math.Min(Math.Max(drive, 1.0), -1.0));
-                                steer = Convert.ToSingle(Math.Min(Math.Max(steer, 1.0), -1.0));
+                                drive = Convert.ToSingle(Math.Max(Math.Min(drive, 1.0), -1.0));
+                                steer = Convert.ToSingle(Math.Max(Math.Max(steer, 1.0), -1.0));
                                 duration = Convert.ToSingle(Math.Max(duration, 0.0));
 
                                 //Add
