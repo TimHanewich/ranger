@@ -88,7 +88,7 @@ def recv_loop() -> None:
 thread_send_loop = threading.Thread(target=send_loop)
 thread_recv_loop = threading.Thread(target=recv_loop)
 thread_send_loop.start()
-thread_send_loop.start()
+thread_recv_loop.start()
 
 # do nothing, keeping the program alive while allowing the threads to do work
 while True:
