@@ -10,6 +10,7 @@ import utilities
 
 # variables we will be tracking and reporting on
 program_began:float = time.time()
+cmds:int = 0 # the number of commands ranger has received so far
 
 # ensure the pigpiod daemon is running - that will be needed to accurately control the steering servo with precision
 while utilities.pigpiod_running() == False:
