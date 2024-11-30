@@ -6,6 +6,14 @@ import settings
 import comms
 import time
 import threading
+import utilities
+
+# ensure the pigpiod daemon is running - that will be needed to accurately control the steering servo with precision
+while utilities.pigpiod_running() == False:
+    print("pigpio daemon not running! Attempting to start now...")
+    utilities.start_pigpiod()
+    time.sleep(1.0)
+print("pigpio dameon confirmed to be running!")
 
 def send_loop() -> None:
     """An infinitely running background process that continuously delivers messages to command via queue storage."""
