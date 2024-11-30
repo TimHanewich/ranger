@@ -12,6 +12,7 @@ class DrivingSystem:
     def __init__(self) -> None:
 
         # setup GPIO's for drive
+        GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(settings.pin_safety, GPIO.OUT)
         GPIO.setup(settings.pin_drive1, GPIO.OUT)
