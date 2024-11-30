@@ -5,6 +5,8 @@
 # ffmpeg -video_size 160x120 -i /dev/video0 -vf fps=0.1 -update 1 capture.jpg
 
 import subprocess
+import io
+import os
 
 class VisionCaptureStream:
 
@@ -19,3 +21,12 @@ class VisionCaptureStream:
         if self.p.poll() != None:
             raise Exception("ffmpeg stream process failed to shut down!")
         self.p = None
+
+    def latest_image(self) -> bytes:
+        """Gets the bytes of the latest image"""
+        if os.path.exists("./capture.jpg") == False:
+            raise Exception("Unable to get latest image: file './capture.jpg' does not exist!")
+        f = open("./capture.jpg", "rb")
+        data:bytes = f.read()
+        f.close()
+        return data
