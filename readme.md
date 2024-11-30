@@ -74,3 +74,6 @@ At 50 hz (standard for a servo), the full cycle is 20ms. So, using the `PWM.Chan
     - Install Python's `pigpio`: `python3 -m pip install pigpio`
     - Install Python's `psutil`: `python3 -m pip install psutil`
     - Install Python's `pillow` (`PIL`) library: `python3 -m pip install pillow`
+
+## Other things
+- Example grayscale, 160x120 photo captured and transmitted: https://i.imgur.com/Xx46fkX.png
