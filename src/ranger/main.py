@@ -24,6 +24,15 @@ while utilities.pigpiod_running() == False:
     time.sleep(1.0)
 print("pigpio dameon confirmed to be running!")
 
+# check if webcam is connected if the settings call for imagery capture via webcam
+if settings.include_image:
+    print("Checking if webcam is connected...")
+    if utilities.webcam_connected():
+        print("Webcam is connected!")
+    else:
+        print("Setting 'include_image' is tuned on yet a webcam was not detected! Turning off `include_image`...")
+        settings.include_image = False
+
 # set up driving system
 ds:DrivingSystem.DrivingSystem = DrivingSystem.DrivingSystem()
 ds.enable_drive() # turn on "failsafe" pin
