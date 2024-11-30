@@ -121,7 +121,82 @@ namespace RangerCommand
             }
             else if (selected == "Send commands to Ranger")
             {
-                Console.WriteLine("Not done yet.");
+                //Authenticate to queue client
+                QueueClient qc = new QueueClient(GetAzureConnectionString(), "c2r");
+                await qc.CreateIfNotExistsAsync();
+
+                while (true)
+                {
+                    SelectionPrompt<string> CommandSelectionPrompt = new SelectionPrompt<string>();
+                    CommandSelectionPrompt.Title("What type of command to send?");
+                    CommandSelectionPrompt.AddChoice("Movement Command");
+                    string CommandSelection = AnsiConsole.Prompt(CommandSelectionPrompt);
+
+                    //Handle command selection
+                    if (CommandSelection == "Movement Command")
+                    {
+                        //Prep phase
+                        JArray MovementCommandsToSend = new JArray();
+                        bool ReadyToSend = false;
+                        while (ReadyToSend == false)
+                        {
+                            //Print all of them
+                            AnsiConsole.MarkupLine("The MovementCommands ready to send: ");
+                            AnsiConsole.MarkupLine("[blue]" + MovementCommandsToSend.ToString(Formatting.Indented) + "[/]");
+
+                            //Ask what to do
+                            SelectionPrompt<string> ChainCommand = new SelectionPrompt<string>();
+                            ChainCommand.Title("What would you like to do?");
+                            ChainCommand.AddChoice("Add another Movement Command");
+                            ChainCommand.AddChoice("Send!");
+                            ChainCommand.AddChoice("RESET");
+                            string SelectedChainCommand = AnsiConsole.Prompt(ChainCommand);
+
+                            //Handle what was selected
+                            if (SelectedChainCommand == "Add another Movement Command")
+                            {
+                                //Capture
+                                float drive = AnsiConsole.Prompt<float>(new TextPrompt<float>("Drive? (-1.0 to 1.0)"));
+                                float steer = AnsiConsole.Prompt<float>(new TextPrompt<float>("Steer? (-1.0 to 1.0)"));
+                                float duration = AnsiConsole.Prompt<float>(new TextPrompt<float>("Duration? (> 0.0)"));
+
+                                //Min/Max
+                                drive = Convert.ToSingle(Math.Min(Math.Max(drive, 1.0), -1.0));
+                                steer = Convert.ToSingle(Math.Min(Math.Max(steer, 1.0), -1.0));
+                                duration = Convert.ToSingle(Math.Max(duration, 0.0));
+
+                                //Add
+                                JObject newMC = new JObject();
+                                newMC.Add("drive", drive);
+                                newMC.Add("steer", steer);
+                                newMC.Add("duration", duration);
+                                MovementCommandsToSend.Add(newMC);
+                            }
+                            else if (SelectedChainCommand == "Send!")
+                            {
+                                ReadyToSend = true;
+                            }
+                            else if (SelectedChainCommand == "RESET")
+                            {
+                                MovementCommandsToSend.Clear();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Unhandled option.");
+                            }
+                        }
+                    
+                        //Send phase
+                        if (ReadyToSend) //double check that it is indicated it is time to send
+                        {
+                            JObject command = new JObject();
+                            command.Add("move", MovementCommandsToSend);
+                            AnsiConsole.Markup("Sending movement commands... ");
+                            await qc.SendMessageAsync(command.ToString());
+                            command.Add("[green]sent![/]");
+                        }
+                    }
+                }
             }
             else if (selected == "TEST")
             {
