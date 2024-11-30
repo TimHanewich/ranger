@@ -64,7 +64,7 @@ def recv_loop() -> None:
     """An infinite loop to receive new commands from command."""
 
     # create Queue Storage service
-    qs:AzureQueue.QueueService = AzureQueue.QueueService(sensitive.azure_queue_url_send, sensitive.azure_queue_sas)
+    qs:AzureQueue.QueueService = AzureQueue.QueueService(sensitive.azure_queue_url_recv, sensitive.azure_queue_sas)
 
     print("Entering infinite receive loop!")
     while True:
