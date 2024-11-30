@@ -11,7 +11,7 @@ pin_drive2:int = 13 # the second drive pin of the L293D. Can swap this around wi
 # SG-90 Servo for steering
 # use GPIO # here, not pin #, because pigpio, what we'll be using to run the steering, using the GPIO #
 gpio_steering:int = 23
-steering_limit:float = 0.5 # limits steering to this percent in both directions. i.e. if you set this to 0.5, it would set the max right steering to 0.5 and max left steering to -0.5
+steering_limit:float = 0.35 # limits steering to this percent in both directions. i.e. if you set this to 0.5, it would set the max right steering to 0.5 and max left steering to -0.5
 
 # image capture command, using fswebcam
 # this is the command that should be used to capture an image
