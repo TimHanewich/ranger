@@ -5,6 +5,7 @@ import vision
 import settings
 import comms
 import time
+import threading
 
 def send_loop() -> None:
     """An infinitely running background process that continuously delivers messages to command via queue storage."""
@@ -33,3 +34,11 @@ def send_loop() -> None:
         for i in range(settings.pulse_frequency_seconds):
             print("SEND: Sending next pulse in " + str(settings.pulse_frequency_seconds - i) + "... ")
             time.sleep(1.0)
+
+# start threads
+thread_send_loop = threading.Thread(target=send_loop)
+thread_send_loop.start()
+
+# do nothing, keeping the program alive while allowing the threads to do work
+while True:
+    time.sleep(1)
