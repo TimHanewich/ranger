@@ -60,8 +60,34 @@ def send_loop() -> None:
             print("SEND: Sending next pulse in " + str(settings.pulse_frequency_seconds - i) + "... ")
             time.sleep(1.0)
 
+def recv_loop() -> None:
+    """An infinite loop to receive new commands from command."""
+
+    # create Queue Storage service
+    qs:AzureQueue.QueueService = AzureQueue.QueueService(sensitive.azure_queue_url_send, sensitive.azure_queue_sas)
+
+    print("Entering infinite receive loop!")
+    while True:
+        
+        # receive command
+        print("RECV: Checking for commands...")
+        msg:AzureQueue.QueueMessage = qs.receive()
+        if msg != None:
+            print("RECV: Msg Received!: " + str(msg))
+
+            # delete the message
+            print("RECV: Deleting message '" + msg.MessageId + "'...")
+            qs.delete(msg.MessageId, msg.PopReceipt)
+        
+        # wait
+        for i in range(settings.recv_frequency_seconds):
+            print("RECV: Checking for commands in " + str(settings.recv_frequency_seconds - i) + "... ")
+            time.sleep(1.0)
+
 # start threads
 thread_send_loop = threading.Thread(target=send_loop)
+thread_recv_loop = threading.Thread(target=recv_loop)
+thread_send_loop.start()
 thread_send_loop.start()
 
 # do nothing, keeping the program alive while allowing the threads to do work
