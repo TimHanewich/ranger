@@ -170,7 +170,7 @@ namespace RangerCommand
             {
                 int uptime_seconds = Convert.ToInt32(prop_uptime.Value.ToString());
                 TimeSpan uptime = new TimeSpan(0, 0, uptime_seconds);
-                AnsiConsole.MarkupLine("Uptime: [blue][bold]" + uptime.Hours.ToString() + " H " + uptime.Minutes.ToString() + " M " + uptime.Seconds.ToString() + " M" + "[/][/]");
+                AnsiConsole.MarkupLine("Uptime: [blue][bold]" + uptime.Hours.ToString() + " hours " + uptime.Minutes.ToString() + " minutes " + uptime.Seconds.ToString() + " seconds" + "[/][/]");
             }
 
             //Get memory percent (memp)
