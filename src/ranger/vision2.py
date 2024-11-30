@@ -16,4 +16,6 @@ class VisionCaptureStream:
 
     def stop_streaming(self) -> None:
         self.p.kill() # kill the process (stops ffmpeg)
+        if self.p.poll() != None:
+            raise Exception("ffmpeg stream process failed to shut down!")
         self.p = None
