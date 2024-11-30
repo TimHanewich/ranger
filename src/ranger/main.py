@@ -7,6 +7,9 @@ import comms
 import time
 import threading
 import utilities
+import AzureQueue
+import sensitive
+import json
 
 # variables we will be tracking and reporting on
 program_began:float = time.time()
@@ -21,6 +24,10 @@ print("pigpio dameon confirmed to be running!")
 
 def send_loop() -> None:
     """An infinitely running background process that continuously delivers messages to command via queue storage."""
+
+    # create Queue Storage service
+    qs:AzureQueue.QueueService = AzureQueue.QueueService(sensitive.azure_queue_url_send, sensitive.azure_queue_sas)
+
     print("Entering beginning infinite send loop!")
     while True:
 
@@ -46,7 +53,7 @@ def send_loop() -> None:
 
         # send
         print("SEND: Sending payload...")
-        comms.send(payload)
+        qs.put(json.dumps(payload)) # send as JSON
 
         # wait period of time
         for i in range(settings.pulse_frequency_seconds):
