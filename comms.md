@@ -24,6 +24,7 @@ The full image capturing and transmitting process will be the following:
 
 ## "Standard" data points that will be transfered in each data packet (Pi --> PC)
 The following data points will be transmitted from the Pi to the PC as part of *every* packet (not a "special" property that has to be requested, but rather always included).
+- `uptime` - The amount of time, in seconds, the ranger program has been running for (*not* since the system's boot time, but since the ranger python program began operating).
 - `memp` - Short for "memory percent", the amount of virtual memory being used as a percentage of overall memory. Can be read by `psutil.virtual_memory().percent`.
 - `memu` - Short for "memory used", the amount of virtual memory used, in bytes. Can be read by `psutil.virtual_memory().used`.
 - `mema` - Short for "memory available", the amount of virtual memory available, in bytes. Can be read by `psutil.virtual_memory().available`.

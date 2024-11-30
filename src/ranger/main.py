@@ -8,6 +8,9 @@ import time
 import threading
 import utilities
 
+# variables we will be tracking and reporting on
+program_began:float = time.time()
+
 # ensure the pigpiod daemon is running - that will be needed to accurately control the steering servo with precision
 while utilities.pigpiod_running() == False:
     print("pigpio daemon not running! Attempting to start now...")
@@ -23,6 +26,9 @@ def send_loop() -> None:
         # set up payload
         print("SEND: Preparing payload with standard inclusions...")
         payload:dict = comms.prepare() # prepares with standard inclusions
+
+        # add uptime
+        payload["uptime"] = int(time.time() - program_began)
 
         # capture image?
         if settings.include_image:
