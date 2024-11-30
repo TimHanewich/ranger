@@ -10,6 +10,8 @@ import utilities
 import AzureQueue
 import sensitive
 import json
+import DrivingSystem
+import MovementCommand
 
 # variables we will be tracking and reporting on
 program_began:float = time.time()
@@ -21,6 +23,12 @@ while utilities.pigpiod_running() == False:
     utilities.start_pigpiod()
     time.sleep(1.0)
 print("pigpio dameon confirmed to be running!")
+
+# set up driving system
+ds:DrivingSystem.DrivingSystem = DrivingSystem.DrivingSystem()
+ds.enable_drive() # turn on "failsafe" pin
+ds.drive(0.0) # start at no power!
+ds.steer(0.0) # start at steering in middle
 
 def send_loop() -> None:
     """An infinitely running background process that continuously delivers messages to command via queue storage."""
@@ -73,7 +81,16 @@ def recv_loop() -> None:
         print("RECV: Checking for commands...")
         msg:AzureQueue.QueueMessage = qs.receive()
         if msg != None:
-            print("RECV: Msg Received!: " + str(msg))
+            
+            # parse message text as json
+            command = json.loads(msg.MessageText)
+            
+            # get movement commands?
+            if "move" in command:
+                movement_commands:list[MovementCommand.MovementCommand] = MovementCommand.MovementCommand.parse(command["move"])
+                print("Got " + str(len(movement_commands)) + " movement commands!")
+                for mc in movement_commands:
+                    print(str(mc))
 
             # delete the message
             print("RECV: Deleting message '" + msg.MessageId + "'...")
