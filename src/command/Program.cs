@@ -156,9 +156,9 @@ namespace RangerCommand
                             if (SelectedChainCommand == "Add another Movement Command")
                             {
                                 //Capture
-                                float drive = AnsiConsole.Prompt<float>(new TextPrompt<float>("Drive? (-1.0 to 1.0)"));
-                                float steer = AnsiConsole.Prompt<float>(new TextPrompt<float>("Steer? (-1.0 to 1.0)"));
-                                float duration = AnsiConsole.Prompt<float>(new TextPrompt<float>("Duration? (> 0.0)"));
+                                float drive = AnsiConsole.Ask<float>("Drive? (-1.0 to 1.0)");
+                                float steer = AnsiConsole.Ask<float>("Steer? (-1.0 to 1.0)");
+                                float duration = AnsiConsole.Ask<float>("Duration? (> 0.0)");
 
                                 //Min/Max
                                 drive = Convert.ToSingle(Math.Min(Math.Max(drive, 1.0), -1.0));
