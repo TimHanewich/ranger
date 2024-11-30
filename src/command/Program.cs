@@ -258,10 +258,10 @@ namespace RangerCommand
             }
 
             //Get cmds
-            JProperty? prop_cmds = msg.Property("cmds");
-            if (prop_cmds != null)
+            JProperty? prop_msgrecv = msg.Property("msgrecv");
+            if (prop_msgrecv != null)
             {
-                int cmds = Convert.ToInt32(prop_cmds.Value.ToString());
+                int cmds = Convert.ToInt32(prop_msgrecv.Value.ToString());
                 AnsiConsole.MarkupLine("Messages received: [blue][bold]" + cmds.ToString("#,##0") + "[/][/]");
             }
 

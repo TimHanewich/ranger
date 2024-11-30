@@ -15,7 +15,7 @@ import MovementCommand
 
 # variables we will be tracking and reporting on
 program_began:float = time.time()
-cmds:int = 0 # the number of commands ranger has received so far
+msgrecv:int = 0 # the number of messages ranger has received so far
 
 # ensure the pigpiod daemon is running - that will be needed to accurately control the steering servo with precision
 while utilities.pigpiod_running() == False:
@@ -55,8 +55,8 @@ def send_loop() -> None:
         # add uptime
         payload["uptime"] = int(time.time() - program_began)
 
-        # add cmds (number of commands that have been received)
-        payload["cmds"] = cmds
+        # add msgrev (number of commands that have been received)
+        payload["msgrecv"] = msgrecv
 
         # capture image?
         if settings.include_image:
