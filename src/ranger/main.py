@@ -93,14 +93,23 @@ def recv_loop() -> None:
             print("RECV: Message of length " + str(len(msg.MessageText)) + " received!")
             
             # parse message text as json
-            command = json.loads(msg.MessageText)
+            command:dict = None
+            print("RECV: Parsing message as JSON...")
+            try:
+                command = json.loads(msg.MessageText)
+            except Exception as e:
+                print("RECV: JSON Parse failed! Exception msg: " + str(e))
+                command = None
             
-            # get movement commands? And if there are some, execute
-            if "move" in command:
-                movement_commands:list[MovementCommand.MovementCommand] = MovementCommand.MovementCommand.parse(str(json.dumps(command["move"])))
-                for mc in movement_commands:
-                    ds.execute(mc, False, True)
-                ds.drive(0.0) # stop at the end of all of them
+            # if it was parsed as JSON successfully, proceed with the command
+            if command != None:
+
+                # get movement commands? And if there are some, execute
+                if "move" in command:
+                    movement_commands:list[MovementCommand.MovementCommand] = MovementCommand.MovementCommand.parse(str(json.dumps(command["move"])))
+                    for mc in movement_commands:
+                        ds.execute(mc, False, True)
+                    ds.drive(0.0) # stop at the end of all of them
             
             # delete the message
             print("RECV: Deleting message '" + msg.MessageId + "'...")
