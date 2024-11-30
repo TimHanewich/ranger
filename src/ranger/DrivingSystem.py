@@ -70,18 +70,7 @@ class DrivingSystem:
 
     ############## HIGHER LEVEL #############
         
-    def execute(self, mcs:Union[MovementCommand.MovementCommand, list[MovementCommand.MovementCommand]]) -> None:
-
-        if isinstance(mcs, MovementCommand.MovementCommand):
-            self._execute(mcs, True, True)
-        elif isinstance(mcs, list[MovementCommand.MovementCommand]):
-            for mc in mcs:
-                self._execute(mc, False, True)
-            self.drive(0.0) # now that every movement command is complete, now stop driving
-        else:
-            raise Exception("Type '" + str(type(mcs)) + "' of movement command(s) not understood!")
-
-    def _execute(self, mc:MovementCommand.MovementCommand, stop_at_end:bool = True, steering_pause:bool = True):
+    def execute(self, mc:MovementCommand.MovementCommand, stop_at_end:bool = True, steering_pause:bool = True):
         # steer, then wait a moment
         self.steer(mc.steer)
         if steering_pause:

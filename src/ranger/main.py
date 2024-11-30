@@ -86,11 +86,13 @@ def recv_loop() -> None:
             # parse message text as json
             command = json.loads(msg.MessageText)
             
-            # get movement commands?
+            # get movement commands? And if there are some, execute
             if "move" in command:
                 movement_commands:list[MovementCommand.MovementCommand] = MovementCommand.MovementCommand.parse(str(json.dumps(command["move"])))
-                ds.execute(movement_commands) # the execute command can execute one or multiple movement commands, one after another
-
+                for mc in movement_commands:
+                    ds.execute(mc, False, True)
+                ds.drive(0.0) # stop at the end of all of them
+            
             # delete the message
             print("RECV: Deleting message '" + msg.MessageId + "'...")
             qs.delete(msg.MessageId, msg.PopReceipt)
