@@ -81,13 +81,16 @@ def recv_loop() -> None:
         print("RECV: Checking for commands...")
         msg:AzureQueue.QueueMessage = qs.receive()
         if msg != None:
+            print("Message received! Msg: " + msg.MessageText)
             
             # parse message text as json
             command = json.loads(msg.MessageText)
             
             # get movement commands?
             if "move" in command:
-                movement_commands:list[MovementCommand.MovementCommand] = MovementCommand.MovementCommand.parse(str(command["move"]))
+                move:dict = command["move"]
+                print("Move: " + str(move))
+                movement_commands:list[MovementCommand.MovementCommand] = MovementCommand.MovementCommand.parse(str(move))
                 print("Got " + str(len(movement_commands)) + " movement commands!")
                 for mc in movement_commands:
                     print(str(mc))
