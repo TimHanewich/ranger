@@ -1,7 +1,7 @@
 # PROGRAM SETTINGS
 pulse_frequency_seconds:int = 10 # Ranger will send an update every X seconds
 recv_frequency_seconds:int = 5 # Ranger will check the receive queue every X seconds for a command from central command
-include_image:bool = True # include an image in each pulse (capture using onboard webcam)
+include_image:bool = False # include an image in each pulse (capture using onboard webcam)
 
 # TT motor driver pins (not GPIO's, pin #'s)
 pin_safety:int = 11 # the "safety" input of the L293D (top left) 
