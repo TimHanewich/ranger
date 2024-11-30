@@ -75,7 +75,7 @@ namespace RangerCommand
 
                         //Read text and parse as JSON
                         string text = qm.Body.ToString();
-                        Console.WriteLine("Received body of length " + text.Length.ToString("#,##0") + " characters.");
+                        AnsiConsole.MarkupLine("[gray]Received body of length " + text.Length.ToString("#,##0") + " characters[/]");
 
                         //Parse as JSON
                         JObject? msg = null;
@@ -92,7 +92,9 @@ namespace RangerCommand
                         if (msg != null) //It was JSON! Work with it!
                         {
                             //System.IO.File.WriteAllText(@"C:\Users\timh\Downloads\tah\ranger\message.json", msg.ToString(Formatting.Indented));
-                            ProcessReceivedMessage(msg);
+                            Console.WriteLine();
+                            ProcessReceivedMessage(msg); //This will print out all the information
+                            Console.WriteLine();
                         }
                         else //It did not parse into JSON correctly.
                         {
