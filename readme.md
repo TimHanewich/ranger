@@ -70,6 +70,7 @@ At 50 hz (standard for a servo), the full cycle is 20ms. So, using the `PWM.Chan
 - Install `fswebcam`: `sudo apt install fswebcam`
 - Install `libjpeg-dev`, a JPEG development library required for Python's `pillow`: `sudo apt-get install libjpeg-dev`
 - Create and activate a Python virtual environment to install the following Python packages:
+    - Install Python's `RPi.GPIO`: `python3 -m pip install RPi.GPIO` *(this normally comes with the Raspberry Pi, built in, but since we are in a virtual environment, need to install it explicitly)*
     - Install Python's `pigpio`: `python3 -m pip install pigpio`
     - Install Python's `psutil`: `python3 -m pip install psutil`
     - Install Python's `pillow` (`PIL`) library: `python3 -m pip install pillow`
