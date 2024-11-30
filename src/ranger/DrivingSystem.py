@@ -54,9 +54,9 @@ class DrivingSystem:
     ############ STEER ##################
     def steer(self, steer:float) -> None:
         s = max(min(steer, 1.0), -1.0) # constrain within absolute bounds
-        min_constraint:float = abs(settings.steering_limit) * -1
-        max_constraint:float = abs(settings.steering_limit)
-        s = min_constraint + ((max_constraint - min_constraint) * (s / 2.0)) # constrain within steering bounds
+        #min_constraint:float = abs(settings.steering_limit) * -1
+        #max_constraint:float = abs(settings.steering_limit)
+        #s = min_constraint + ((max_constraint - min_constraint) * (s / 2.0)) # constrain within steering bounds
         spercent:float = (s + 1) / 2.0
         width:int = int(500 + (spercent * (2500 - 500)))
         self.pwm.set_servo_pulsewidth(settings.gpio_steering, width)
