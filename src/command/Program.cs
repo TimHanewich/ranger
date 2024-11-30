@@ -257,6 +257,14 @@ namespace RangerCommand
                 AnsiConsole.MarkupLine("Uptime: [blue][bold]" + uptime.Hours.ToString() + " hours, " + uptime.Minutes.ToString() + " minutes, " + uptime.Seconds.ToString() + " seconds" + "[/][/]");
             }
 
+            //Get cmds
+            JProperty? prop_cmds = msg.Property("cmds");
+            if (prop_cmds != null)
+            {
+                int cmds = Convert.ToInt32(prop_cmds.Value.ToString());
+                AnsiConsole.MarkupLine("Messages received: [blue][bold]" + cmds.ToString("#,##0") + "[/][/]");
+            }
+
             //Get memory percent (memp)
             JProperty? prop_memp = msg.Property("memp");
             if (prop_memp != null)
