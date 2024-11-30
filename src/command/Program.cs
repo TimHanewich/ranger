@@ -162,7 +162,7 @@ namespace RangerCommand
 
                                 //Min/Max
                                 drive = Convert.ToSingle(Math.Max(Math.Min(drive, 1.0), -1.0));
-                                steer = Convert.ToSingle(Math.Max(Math.Max(steer, 1.0), -1.0));
+                                steer = Convert.ToSingle(Math.Max(Math.Min(steer, 1.0), -1.0));
                                 duration = Convert.ToSingle(Math.Max(duration, 0.0));
 
                                 //Add
