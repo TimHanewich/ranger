@@ -164,6 +164,15 @@ namespace RangerCommand
         {
             //Example standard payload: {'memp': 0.269, 'memu': 69828608, 'mema': 327864320, 'diska': 228248584192, 'bsent': 544165, 'brecv': 197279}
 
+            //Get uptime
+            JProperty? prop_uptime = msg.Property("uptime");
+            if (prop_uptime != null)
+            {
+                int uptime_seconds = Convert.ToInt32(prop_uptime.Value.ToString());
+                TimeSpan uptime = new TimeSpan(0, 0, uptime_seconds);
+                AnsiConsole.MarkupLine("Uptime: [blue][bold]" + uptime.ToString() + "[/][/]");
+            }
+
             //Get memory percent (memp)
             JProperty? prop_memp = msg.Property("memp");
             if (prop_memp != null)
