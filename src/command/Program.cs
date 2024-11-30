@@ -142,7 +142,7 @@ namespace RangerCommand
                         {
                             //Print all of them
                             AnsiConsole.MarkupLine("The MovementCommands ready to send: ");
-                            AnsiConsole.MarkupLine("[blue]" + MovementCommandsToSend.ToString(Formatting.Indented) + "[/]");
+                            AnsiConsole.MarkupLine("[blue]" + MovementCommandsToSend.ToString(Formatting.Indented).Replace("[", "[[").Replace("]", "]]") + "[/]");
 
                             //Ask what to do
                             SelectionPrompt<string> ChainCommand = new SelectionPrompt<string>();
@@ -192,8 +192,8 @@ namespace RangerCommand
                             JObject command = new JObject();
                             command.Add("move", MovementCommandsToSend);
                             AnsiConsole.Markup("Sending movement commands... ");
-                            await qc.SendMessageAsync(command.ToString());
-                            command.Add("[green]sent![/]");
+                            await qc.SendMessageAsync(command.ToString(Formatting.None));
+                            AnsiConsole.MarkupLine("[green]sent![/]");
                         }
                     }
                 }
