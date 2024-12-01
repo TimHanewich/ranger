@@ -139,12 +139,22 @@ def recv_loop() -> None:
 
 def cleanup() -> None:
     """A cleanup function that will run upon program termination, regardless of HOW the program is terminated"""
+
+    # terminate FFMPEG streaming
     if vcs != None:
         vcs.stop_streaming() # kill the streaming process
         if vcs.streaming() == False:
             print("FFMPEG streaming successfully terminated via cleanup!")
         else:
             print("FFMPEG termination failed! It may be still running!")
+
+    # turn off driving
+    ds.disable_drive() # disable drive (turn off safety)
+    print("Drive disabled as part of cleanup")
+    ds.pwm.stop() # stop the PWM
+    print("Steering PWM stopped as part of cleanup")
+    
+
 atexit.register(cleanup)
 
 # start threads
