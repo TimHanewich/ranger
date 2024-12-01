@@ -12,10 +12,11 @@ class VisionCaptureService:
 
     def __init__(self):
         self.p = None
+        self._save_to:str = "./capture.jpg"
 
     def start_streaming(self) -> None:
         if self.streaming() == False:
-            self.p:subprocess.Popen = subprocess.Popen(['ffmpeg', '-video_size', '160x120', '-i', '/dev/video0', '-vf', 'fps=0.1', '-update', '1', './capture.jpg'], stdout=subprocess.DEVNULL, stderr = subprocess.DEVNULL)
+            self.p:subprocess.Popen = subprocess.Popen(['ffmpeg', '-video_size', '160x120', '-i', '/dev/video0', '-vf', 'fps=0.1', '-update', '1', self._save_to], stdout=subprocess.DEVNULL, stderr = subprocess.DEVNULL)
 
     def streaming(self) -> bool:
         """Checks if the stream is still going"""
@@ -33,9 +34,9 @@ class VisionCaptureService:
 
     def latest_image(self) -> bytes:
         """Gets the bytes of the latest image"""
-        if os.path.exists("./capture.jpg") == False:
-            raise Exception("Unable to get latest image: file './capture.jpg' does not exist!")
-        f = open("./capture.jpg", "rb")
+        if os.path.exists(self._save_to) == False:
+            raise Exception("Unable to get latest image: file '" + self._save_to + "' does not exist!")
+        f = open(self._save_to, "rb")
         data:bytes = f.read()
         f.close()
         return data
