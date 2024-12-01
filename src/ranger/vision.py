@@ -8,12 +8,14 @@ import subprocess
 import os
 
 class VisionCaptureService:
+    """In the sense of the `VisionCaptureSevice` class, 'streaming' means using ffmpeg to periodically (i.e. once every 10 seconds) capture a photo and save it to the same name. Allowing the program to read this saved file and report it as the most recent image."""
 
     def __init__(self):
         self.p = None
         self._save_to:str = "./capture.jpg" # the path where the captured image file will be saved to, read from.
 
     def start_streaming(self) -> None:
+        """If streaming has not already started, begins streaming."""
         if self.streaming() == False:
             self.p:subprocess.Popen = subprocess.Popen(['ffmpeg', '-video_size', '160x120', '-i', '/dev/video0', '-vf', 'fps=0.1', '-update', '1', self._save_to], stdout=subprocess.DEVNULL, stderr = subprocess.DEVNULL)
 
@@ -25,6 +27,7 @@ class VisionCaptureService:
             return self.p.poll() == None # if poll returns none, it is still going. If it returns a status code, it is finished.
 
     def stop_streaming(self) -> None:
+        """If the stream is still going, stops it."""
         if self.streaming() == True:
             self.p.kill() # kill the process (stops ffmpeg)
             if self.p.poll() != None:
