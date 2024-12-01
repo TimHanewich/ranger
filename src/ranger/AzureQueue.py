@@ -136,7 +136,6 @@ class QueueService:
 
         # make DELETE request
         delete_url:str = urljoin(urljoin(self._url, "messages"), message_id) + "?popreceipt=" + pop_receipt.replace("+", "%2B") + "&" + self._token
-        print("DELETE URL GOING TO TRY: <" + delete_url + ">") # NEW!
         response = requests.delete(delete_url)
 
         # handle error
