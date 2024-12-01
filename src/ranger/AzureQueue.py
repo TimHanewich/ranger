@@ -141,6 +141,7 @@ class QueueService:
         # handle error
         if response.status_code != 204: # when successful, it returns 204 NO CONTENT
             response_body:str = response.text
+            print("TRIED TO DELETE TO THIS URL: <" + delete_url + ">") # NEW!
             raise Exception("Deletion of message '" + message_id + "' was unsuccessful! Status code '" + str(response.status_code) + "' was returned. Body: " + response_body)
 
     def clear(self) -> None:
