@@ -207,7 +207,7 @@ namespace RangerCommand
             }
             else if (selected == "TEST")
             {
-                Console.WriteLine(GetNextHistoricalImageName());
+                
             }
             else
             {
