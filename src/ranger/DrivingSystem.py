@@ -6,7 +6,6 @@ import RPi.GPIO as GPIO # RPi.GPIO is used for driving (it is easy)
 import time
 import MovementCommand
 import settings
-from typing import Union
 
 class DrivingSystem:
     def __init__(self) -> None:
