@@ -3,7 +3,6 @@ print("For more information about me, please visit https://github.com/TimHanewic
 print("Now loading dependencies...")
 import vision
 import settings
-import comms
 import time
 import threading
 import utilities
@@ -59,7 +58,7 @@ def send_loop() -> None:
 
         # set up payload
         print("SEND: Preparing payload with standard inclusions...")
-        payload:dict = comms.prepare() # prepares with standard inclusions
+        payload:dict = utilities.prepare_payload() # prepares with standard inclusions
 
         # add uptime
         payload["uptime"] = int(time.time() - program_began)
