@@ -366,8 +366,16 @@ namespace RangerCommand
                     }
                 }
 
+                //Prepare to save the image - make sure the 'WorkingDirectory' directory folder exists
+                string WorkingDirectoryPath = Path.Combine(Environment.CurrentDirectory, "WorkingDirectory");
+                if (System.IO.Directory.Exists(WorkingDirectoryPath) == false)
+                {
+                    System.IO.Directory.CreateDirectory(WorkingDirectoryPath);
+                }
+
                 //Save the image
-                bm.Save(@"C:\Users\timh\Downloads\tah\ranger\image.jpg");
+                string SaveToPath = Path.Combine(WorkingDirectoryPath, "latest.jpg");
+                bm.Save(SaveToPath);
 
                 //Print that there was an image
                 AnsiConsole.MarkupLine("[green][bold]image unpacked![/][/]");
