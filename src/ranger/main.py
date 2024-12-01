@@ -36,9 +36,10 @@ if settings.include_image:
         settings.include_image = False
 
 # if settings call for imagery capture (vision), start ffmpeg stream via vision
+vcs:vision.VisionCaptureService = None # declare as None just so the remainder of the program knows the variable exists, even if it is none
 if settings.include_image:
     print("Starting FFMPEG background stream...")
-    vcs:vision.VisionCaptureService = vision.VisionCaptureService() # tool for streaming via ffmpeg in the background
+    vcs = vision.VisionCaptureService() # tool for streaming via ffmpeg in the background
     vcs.start_streaming() # starts background process
     if vcs.streaming():
         print("FFMPEG background stream now running!")
