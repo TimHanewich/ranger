@@ -136,12 +136,12 @@ class QueueService:
 
         # make DELETE request
         delete_url:str = urljoin(urljoin(self._url, "messages"), message_id) + "?popreceipt=" + pop_receipt + "&" + self._token
+        print("DELETE URL GOING TO TRY: <" + delete_url + ">") # NEW!
         response = requests.delete(delete_url)
 
         # handle error
         if response.status_code != 204: # when successful, it returns 204 NO CONTENT
             response_body:str = response.text
-            print("TRIED TO DELETE TO THIS URL: <" + delete_url + ">") # NEW!
             raise Exception("Deletion of message '" + message_id + "' was unsuccessful! Status code '" + str(response.status_code) + "' was returned. Body: " + response_body)
 
     def clear(self) -> None:
