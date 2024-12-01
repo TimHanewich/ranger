@@ -41,4 +41,5 @@ class VisionCaptureService:
         f = open(self._save_to, "rb")
         data:bytes = f.read()
         f.close()
+        os.remove(self._save_to)
         return data
