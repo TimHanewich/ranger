@@ -130,8 +130,12 @@ def recv_loop() -> None:
                 # get movement commands? And if there are some, execute
                 if "move" in command:
                     movement_commands:list[MovementCommand.MovementCommand] = MovementCommand.MovementCommand.parse(str(json.dumps(command["move"])))
+                    print("RECV: " + str(len(movement_commands)) + " movement command(s) received!")
+                    on_number:int = 1
                     for mc in movement_commands:
+                        print("RECV: executing MC " + str(on_number) + " / " + str(len(movement_commands)) + "... ")
                         ds.execute(mc, False, True)
+                        on_number = on_number + 1
                     ds.drive(0.0) # stop at the end of all of them
             
             # delete the message
