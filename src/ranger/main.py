@@ -96,6 +96,9 @@ def send_loop() -> None:
 def recv_loop() -> None:
     """An infinite loop to receive new commands from command."""
 
+    # global variables (need to declare them as global here to be able to read them from a thread)
+    global msgrecv
+
     # create Queue Storage service
     qs:AzureQueue.QueueService = AzureQueue.QueueService(sensitive.azure_queue_url_recv, sensitive.azure_queue_sas)
 
