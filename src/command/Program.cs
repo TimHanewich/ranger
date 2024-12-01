@@ -189,11 +189,18 @@ namespace RangerCommand
                         //Send phase
                         if (ReadyToSend) //double check that it is indicated it is time to send
                         {
-                            JObject command = new JObject();
-                            command.Add("move", MovementCommandsToSend);
-                            AnsiConsole.Markup("Sending movement commands... ");
-                            await qc.SendMessageAsync(command.ToString(Formatting.None));
-                            AnsiConsole.MarkupLine("[green]sent![/]");
+                            if (MovementCommandsToSend.Count > 0)
+                            {
+                                JObject command = new JObject();
+                                command.Add("move", MovementCommandsToSend);
+                                AnsiConsole.Markup("Sending movement commands... ");
+                                await qc.SendMessageAsync(command.ToString(Formatting.None));
+                                AnsiConsole.MarkupLine("[green]sent![/]");
+                            }
+                            else
+                            {
+                                AnsiConsole.MarkupLine("[gold1]Not going to send 0 movement commands[/]");
+                            }
                         }
                     }
                 }
