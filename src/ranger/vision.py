@@ -17,7 +17,7 @@ class VisionCaptureService:
     def start_streaming(self) -> None:
         """If streaming has not already started, begins streaming."""
         if self.streaming() == False:
-            self.p:subprocess.Popen = subprocess.Popen(['ffmpeg', '-video_size', '160x120', '-i', '/dev/video0', '-vf', 'fps=0.1', '-update', '1', self._save_to], stdout=subprocess.DEVNULL, stderr = subprocess.DEVNULL)
+            self.p:subprocess.Popen = subprocess.Popen(['ffmpeg', '-video_size', '160x120', '-i', '/dev/video0', '-vf', 'fps=0.2', '-update', '1', self._save_to], stdout=subprocess.DEVNULL, stderr = subprocess.DEVNULL)
 
     def streaming(self) -> bool:
         """Checks if the stream is still going"""
