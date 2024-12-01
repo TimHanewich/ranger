@@ -13,6 +13,7 @@ import DrivingSystem
 import MovementCommand
 import vision
 import VisionProcessing
+import atexit
 
 # variables we will be tracking and reporting on
 program_began:float = time.time()
@@ -135,6 +136,16 @@ def recv_loop() -> None:
         for i in range(settings.recv_frequency_seconds):
             print("RECV: Checking for commands in " + str(settings.recv_frequency_seconds - i) + "... ")
             time.sleep(1.0)
+
+def cleanup() -> None:
+    """A cleanup function that will run upon program termination, regardless of HOW the program is terminated"""
+    if vcs != None:
+        vcs.stop_streaming() # kill the streaming process
+        if vcs.streaming() == False:
+            print("FFMPEG streaming successfully terminated via cleanup!")
+        else:
+            print("FFMPEG termination failed! It may be still running!")
+atexit.register(cleanup)
 
 # start threads
 thread_send_loop = threading.Thread(target=send_loop)
