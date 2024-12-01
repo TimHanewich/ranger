@@ -102,8 +102,10 @@ def recv_loop() -> None:
 
     # create Queue Storage service
     qs:AzureQueue.QueueService = AzureQueue.QueueService(sensitive.azure_queue_url_recv, sensitive.azure_queue_sas)
+    print("RECV: Clearing receive queue of any old messages")
+    qs.clear() # clear the queue to begin (we don't want to process any old messages, want to start from a new slate)
 
-    print("Entering infinite receive loop!")
+    # infinite receive loop
     while True:
         
         # receive command
