@@ -207,7 +207,7 @@ namespace RangerCommand
             }
             else if (selected == "TEST")
             {
-                ProcessReceivedMessage(JObject.Parse(System.IO.File.ReadAllText(@"C:\Users\timh\Downloads\tah\ranger\message.json")));
+                Console.WriteLine(GetNextHistoricalImageName());
             }
             else
             {
@@ -373,9 +373,19 @@ namespace RangerCommand
                     System.IO.Directory.CreateDirectory(WorkingDirectoryPath);
                 }
 
-                //Save the image
+                //Save the image to latest
                 string SaveToPath = Path.Combine(WorkingDirectoryPath, "latest.jpg");
                 bm.Save(SaveToPath);
+
+                //Save the image to history
+                string history_path = Path.Combine(Environment.CurrentDirectory, "WorkingDirectory", "history");
+                if (System.IO.Directory.Exists(history_path) == false)
+                {
+                    System.IO.Directory.CreateDirectory(history_path);
+                }
+                string SaveToHistoryPath = Path.Combine(history_path, GetNextHistoricalImageName(history_path));
+                bm.Save(SaveToHistoryPath);
+
 
                 //Print that there was an image
                 AnsiConsole.MarkupLine("[green][bold]image unpacked![/][/]");
@@ -383,6 +393,55 @@ namespace RangerCommand
 
         }
 
+        private static string GetNextHistoricalImageName(string directory_path)
+        {
+            if (System.IO.Directory.Exists(directory_path) == false)
+            {
+                return "capture_000001.jpg";
+            }
+            else
+            {
 
+                //Get the current largest number
+                string[] files = System.IO.Directory.GetFiles(directory_path); //get all files
+                int LargestNumber = 0;
+                foreach (string file in files)
+                {
+
+                    //Get just numbers from file name
+                    string FileName = System.IO.Path.GetFileNameWithoutExtension(file);
+                    string Allowed = "0123456789";
+                    string FileNameOnlyNumbers = "";
+                    foreach (char c in FileName)
+                    {
+                        bool IsNumber = false;
+                        foreach (char c2 in Allowed)
+                        {
+                            if (c == c2)
+                            {
+                                IsNumber = true;
+                            }
+                        }
+                        if (IsNumber)
+                        {
+                            FileNameOnlyNumbers = FileNameOnlyNumbers + c.ToString();
+                        }
+                    }  
+
+                    //Is it biggest?
+                    if (FileNameOnlyNumbers.Length > 0)
+                    {
+                        int ThisNumber = Convert.ToInt32(FileNameOnlyNumbers);
+                        if (ThisNumber > LargestNumber)
+                        {
+                            LargestNumber = ThisNumber;
+                        }
+                    }
+                }
+
+                //Return
+                return "capture_" + (LargestNumber + 1).ToString("000000") + ".jpg";
+            }
+        }
     }
 }
