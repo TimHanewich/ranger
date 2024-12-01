@@ -12,10 +12,12 @@ class VisionCaptureService:
 
     def __init__(self):
         self.p = None
-        self._save_to:str = "./.WorkingDirectory/capture.jpg" # the path where the captured image file will be saved to, read from.
+        self._save_to:str = "./WorkingDirectory/capture.jpg" # the path where the captured image file will be saved to, read from.
 
     def start_streaming(self) -> None:
         """If streaming has not already started, begins streaming."""
+        dir:str = os.path.dirname(self._save_to) # gets all the directories, but just excludes the file name
+        os.makedirs(dir, exist_ok=True) # creates the full directory build out... 1 dir, 2 dir, etc. All made. We have to do this so ffmpeg can plop the file in there.
         if self.streaming() == False:
             self.p:subprocess.Popen = subprocess.Popen(['ffmpeg', '-video_size', '160x120', '-i', '/dev/video0', '-vf', 'fps=1', '-update', '1', self._save_to], stdout=subprocess.DEVNULL, stderr = subprocess.DEVNULL)
 
