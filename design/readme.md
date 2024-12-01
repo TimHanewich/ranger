@@ -2,3 +2,5 @@
 This folder contains all of the files/content regarding the 3D-printed (physical) side of Ranger.
 
 Ranger was designed in **Blender** - the Blender design file is [ranger.blend](ranger.blend).
+
+The eletrical wiring diagram can be opened in [draw.io](https://draw.io), the save file is [wiring.drawio](./wiring.drawio).
