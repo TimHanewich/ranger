@@ -12,7 +12,7 @@ class VisionCaptureService:
 
     def __init__(self):
         self.p = None
-        self._save_to:str = "./capture.jpg"
+        self._save_to:str = "./capture.jpg" # the path where the captured image file will be saved to, read from.
 
     def start_streaming(self) -> None:
         if self.streaming() == False:
