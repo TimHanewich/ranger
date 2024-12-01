@@ -107,7 +107,7 @@ def recv_loop() -> None:
         msg:AzureQueue.QueueMessage = qs.receive()
         if msg != None:
             print("RECV: Message of length " + str(len(msg.MessageText)) + " received!")
-            cmds = cmds + 1
+            msgrecv = msgrecv + 1
             
             # parse message text as json
             command:dict = None
