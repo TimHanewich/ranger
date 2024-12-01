@@ -30,16 +30,19 @@ if settings.include_image:
     print("Checking if webcam is connected...")
     if utilities.webcam_connected():
         print("Webcam is connected!")
-        vcs:vision.VisionCaptureService = vision.VisionCaptureService() # tool for streaming via ffmpeg in the background
-        print("Starting FFMPEG background stream...")
-        vcs.start_streaming()
-        if vcs.streaming():
-            print("FFMPEG background stream now running!")
-        else:
-            print("FAILURE! FFMPEG background stream didn't seem to work!")
     else:
         print("Setting 'include_image' is tuned on yet a webcam was not detected! Turning off `include_image`...")
         settings.include_image = False
+
+# if settings call for imagery capture (vision), start ffmpeg stream via vision
+if settings.include_image:
+    print("Starting FFMPEG background stream...")
+    vcs:vision.VisionCaptureService = vision.VisionCaptureService() # tool for streaming via ffmpeg in the background
+    vcs.start_streaming() # starts background process
+    if vcs.streaming():
+        print("FFMPEG background stream now running!")
+    else:
+        print("FAILURE! FFMPEG background stream didn't seem to work!")
 
 # set up driving system
 ds:DrivingSystem.DrivingSystem = DrivingSystem.DrivingSystem()
