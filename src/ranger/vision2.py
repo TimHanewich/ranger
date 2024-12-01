@@ -5,7 +5,6 @@
 # ffmpeg -video_size 160x120 -i /dev/video0 -vf fps=0.1 -update 1 capture.jpg
 
 import subprocess
-import io
 import os
 
 class VisionCaptureService:
