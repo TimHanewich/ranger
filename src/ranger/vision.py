@@ -37,7 +37,7 @@ class VisionCaptureService:
     def latest_image(self) -> bytes:
         """Gets the bytes of the latest image"""
         if os.path.exists(self._save_to) == False:
-            raise Exception("Unable to get latest image: file '" + self._save_to + "' does not exist!")
+            raise Exception("Unable to get latest image: file '" + self._save_to + "' does not exist! It is possible the FFMPEG streaming process is no longer working, has been turned off, or it is still running but not enough time has elapsed for it to grab the next photo and save it.")
         f = open(self._save_to, "rb")
         data:bytes = f.read()
         f.close()
