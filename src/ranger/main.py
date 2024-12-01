@@ -153,8 +153,6 @@ def cleanup() -> None:
     print("Drive disabled as part of cleanup")
     ds.pwm.stop() # stop the PWM
     print("Steering PWM stopped as part of cleanup")
-    
-
 atexit.register(cleanup)
 
 # start threads
