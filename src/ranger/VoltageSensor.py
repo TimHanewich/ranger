@@ -12,3 +12,6 @@ class VoltageSensor:
         nexts = nexts.replace("\r\n", "")
         nexti:int = int(nexts) # convert
         return nexti    
+    
+    def close(self) -> None:
+        """Closes the serial connection."""
