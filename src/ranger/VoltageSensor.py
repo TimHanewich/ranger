@@ -1,10 +1,12 @@
 import serial
 import BatteryMonitor
+import WeightedAverageCalculator
 
 class VoltageSensor:
 
     def __init__(self, bus:str = "/dev/serial0", baudrate:int = 9600):
         self.ser:serial.Serial = serial.Serial(bus, baudrate)
+        self.wac:WeightedAverageCalculator.WeightedAverageCalculator = WeightedAverageCalculator.WeightedAverageCalculator()
 
     def _read_raw(self) -> int:
         """Reads the raw integer value coming through on the UART"""
@@ -17,6 +19,12 @@ class VoltageSensor:
             return nexti    
         else:
             raise Exception("Cannot read voltage because the serial connection was closed!")
+        
+    def _read_raw_weighted(self) -> int:
+        """Reads the raw value, but passes through a weighted average filter to 'smooth' out the output."""
+        reading:int = self._read_raw()
+        reading_weighted:int = int(self.wac.feed(reading))
+        return reading_weighted
         
     def voltage(self) -> float:
         """Interprets the voltage of the battery and returns it as a floating point number"""
@@ -34,7 +42,7 @@ class VoltageSensor:
         # @ 12.0V supply (0% charged 4S LiPo) = 40,994
 
         # read raw
-        raw:int = self._read_raw()
+        raw:int = self._read_raw_weighted()
 
         # convert to voltage estimate
         PercentOfRange:float = (raw - 40994) / (57093 - 40094)
