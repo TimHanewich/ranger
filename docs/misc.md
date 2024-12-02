@@ -60,6 +60,7 @@ Ensure a UART serial is available: `ls /dev/serial*`
 Run screen to read the incoming messages on that serial connection: `sudo screen /dev/serial0 9600`
 
 ## Setting up a Raspberry Pi to run Ranger
+- Enable serial (UART) communications via `sudo rasp-config` (see instructions [here](https://timhanewich.medium.com/using-uart-between-a-raspberry-pi-pico-and-raspberry-pi-3b-raspbian-71095d1b259f))
 - `sudo apt update` & `sudo apt upgrade`
 - Install `pigpio`: `sudo apt install pigpio`
 - Install `ffmpeg`: `sudo apt install ffmpeg`
