@@ -14,6 +14,7 @@ import MovementCommand
 import vision
 import VisionProcessing
 import atexit
+import VoltageSensor
 
 # variables we will be tracking and reporting on
 program_began:float = time.time()
@@ -46,6 +47,9 @@ if settings.include_image:
     else:
         print("FAILURE! FFMPEG background stream didn't seem to work!")
 
+# set up voltage sensor
+vs:VoltageSensor.VoltageSensor = VoltageSensor.VoltageSensor()
+
 # set up driving system
 ds:DrivingSystem.DrivingSystem = DrivingSystem.DrivingSystem()
 ds.enable_drive() # turn on "failsafe" pin
@@ -70,6 +74,9 @@ def send_loop() -> None:
 
         # add msgrev (number of commands that have been received)
         payload["msgrecv"] = msgrecv
+
+        # add battery voltage
+        payload["batsoc"] = vs.soc() # battery state of charge (as a percentage between 0.0 and 1.0)
 
         # capture image?
         if settings.include_image: # if the settings are to include the imag
