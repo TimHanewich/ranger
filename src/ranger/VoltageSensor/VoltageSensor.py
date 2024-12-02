@@ -1,6 +1,6 @@
 import serial
-import BatteryMonitor
-import WeightedAverageCalculator
+from . import BatteryMonitor
+from . import WeightedAverageCalculator
 
 class VoltageSensor:
 

@@ -1,1 +1,1 @@
-from VoltageSensor import *
+from .VoltageSensor import *
