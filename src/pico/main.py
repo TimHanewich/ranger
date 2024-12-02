@@ -1,21 +1,33 @@
 import machine
 import time
 
+# set up
 uart = machine.UART(0, baudrate=9600, tx=machine.Pin(16))
 adc = machine.ADC(26)
 
-while True:
+# turn on LED while working properly
+led = machine.Pin("LED", machine.Pin.OUT)
+led.on()
 
-    # read
-    print("Reading...")
-    input = adc.read_u16()
-    print("Read value '" + str(input) + "'")
+try:
+    while True:
 
-    # transmit
-    ToTransmit:str = str(input) + "\r\n"
-    print("Transmitting via UART... ")
-    uart.send(ToTransmit.encode())
-    print("Transmitted!")
+        # read
+        print("Reading...")
+        input = adc.read_u16()
+        print("Read value '" + str(input) + "'")
 
-    # wait
-    time.sleep(1.0)
+        # transmit
+        ToTransmit:str = str(input) + "\r\n"
+        print("Transmitting via UART... ")
+        uart.write(ToTransmit.encode())
+        print("Transmitted!")
+
+        # wait
+        time.sleep(1.0)
+except:
+    while True:
+        led.on()
+        time.sleep(1.0)
+        led.off()
+        time.sleep(1.0)
