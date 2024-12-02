@@ -48,8 +48,12 @@ class VoltageSensor:
         PercentOfRange:float = (raw - 40994) / (57093 - 40094)
         volts:float = 12.0 + ((16.8 - 12.0) * PercentOfRange)
         return volts
-        
     
+    def soc(self) -> float:
+        """Returns battery state of charge, as a percentage (0.0 to 1.0)"""
+        bm:BatteryMonitor.BatteryMonitor = BatteryMonitor.BatteryMonitor(BatteryMonitor.PROFILE_1S_LIPO)
+        return bm.soc(self.voltage() / 4) # divide voltage by 4 to get down to a 1S LiPo scale, which this battery monitor is set to understand.
+        
     def close(self) -> None:
         """Closes the serial connection."""
         self.ser.close()
