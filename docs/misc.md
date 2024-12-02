@@ -52,6 +52,13 @@ Basically, a duty cycle of 1ms is 0%, 2ms is 100%. So you need to change the dut
 
 At 50 hz (standard for a servo), the full cycle is 20ms. So, using the `PWM.ChangeDutyCycle()` function of the `RPi.GPIO` module, you need to set the duty cycle to between 5% and 10% of the 20ms... that will get you from between 1ms and 2ms!
 
+## Using `screen` to monitor incoming UART messages
+Install `screen`: `sudo apt install screen`
+
+Ensure a UART serial is available: `ls /dev/serial*`
+
+Run screen to read the incoming messages on that serial connection: `sudo screen /dev/serial0 9600`
+
 ## Setting up a Raspberry Pi to run Ranger
 - `sudo apt update` & `sudo apt upgrade`
 - Install `pigpio`: `sudo apt install pigpio`
