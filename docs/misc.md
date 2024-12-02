@@ -66,6 +66,7 @@ Run screen to read the incoming messages on that serial connection: `sudo screen
 - Install `libjpeg-dev`, a JPEG development library required for Python's `pillow`: `sudo apt-get install libjpeg-dev`
 - Create and activate a Python virtual environment to install the following Python packages:
     - Install Python's `requests`: `python3 -m pip install requests`
+    - Install Python's `pyserial`: `python3 -m pip install pyserial`
     - Install Python's `RPi.GPIO`: `python3 -m pip install RPi.GPIO` *(this normally comes with the Raspberry Pi, built in, but since we are in a virtual environment, need to install it explicitly)*
     - Install Python's `pigpio`: `python3 -m pip install pigpio`
     - Install Python's `psutil`: `python3 -m pip install psutil`
