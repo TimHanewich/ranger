@@ -52,10 +52,16 @@ class DrivingSystem:
     
     ############ STEER ##################
     def steer(self, steer:float) -> None:
-        s = max(min(steer, 1.0), -1.0) # constrain within absolute bounds
+        s = max(min(steer, 1.0), -1.0) # constrain within absolute bounds (ensure they're not asking for something less than 100% left or right turn)
+        
+        # contrain to within steering limit bounds (this prevents the servo motor from burning out at extreme turning angles)
         min_constraint:float = abs(settings.steering_limit) * -1
         max_constraint:float = abs(settings.steering_limit)
         s = min_constraint + ((max_constraint - min_constraint) * ((s +1) / 2.0)) # constrain within steering bounds
+
+        # flip to a negative number due to the way I have it mounted and flipped
+        s = s * -1
+
         spercent:float = (s + 1) / 2.0
         width:int = int(500 + (spercent * (2500 - 500)))
         self.pwm.set_servo_pulsewidth(settings.gpio_steering, width)
