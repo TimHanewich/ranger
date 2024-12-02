@@ -264,6 +264,14 @@ namespace RangerCommand
                 AnsiConsole.MarkupLine("Uptime: [blue][bold]" + uptime.Hours.ToString() + " hours, " + uptime.Minutes.ToString() + " minutes, " + uptime.Seconds.ToString() + " seconds" + "[/][/]");
             }
 
+            //Get battery state of charge
+            JProperty? prop_batsoc = msg.Property("batsoc");
+            if (prop_batsoc != null)
+            {
+                float batsoc = Convert.ToSingle(prop_batsoc.Value.ToString());
+                AnsiConsole.MarkupLine("Battery SOC: [blue][bold]" + batsoc.ToString("#0%") + "[/][/]");
+            }
+
             //Get cmds
             JProperty? prop_msgrecv = msg.Property("msgrecv");
             if (prop_msgrecv != null)
