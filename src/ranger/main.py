@@ -165,6 +165,10 @@ def cleanup() -> None:
         else:
             print("FFMPEG termination failed! It may be still running!")
 
+    # close serial communication on battery
+    vs.close()
+    print("Battery monitor via serial communications closed as part of cleanup")
+
     # turn off driving
     ds.disable_drive() # disable drive (turn off safety)
     print("Drive disabled as part of cleanup")
