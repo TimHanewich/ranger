@@ -12,7 +12,6 @@ import json
 import DrivingSystem
 import MovementCommand
 import vision
-import VisionProcessing
 import atexit
 import VoltageSensor
 
@@ -84,7 +83,7 @@ def send_loop() -> None:
                 print("SEND: Capturing image... ")
                 try:
                     latest_img:bytes = vcs.latest_image() # retrieve the most recent save from the FFMPEG stream, as bytes
-                    b64:str = VisionProcessing.process_image(latest_img) # open the JPG image bytes, open it as an Image, loop through each pixel, convert to grayscale, save those grayscale bytes, and then convert it to base64 (plain string)
+                    b64:str = vision.process_image(latest_img) # open the JPG image bytes, open it as an Image, loop through each pixel, convert to grayscale, save those grayscale bytes, and then convert it to base64 (plain string)
                     imgdict:dict = {"base64": b64, "width": 160, "height": 120} # keep in mind that the base64 that is transmitted here is NOT the base64 of the JPEG image itself... i.e. you can't just save it as a JPEG. It instead is the base64 of the BYTES behind each pixel's grayscale value. So you have to reconstruct a bitmap, loop through all the pixels and then set the grayscale value. That is why the width and heigh is important here too.
                     payload["image"] = imgdict
                 except Exception as ex:
