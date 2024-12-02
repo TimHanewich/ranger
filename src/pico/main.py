@@ -11,7 +11,7 @@ led.on()
 
 try:
     while True:
-
+        
         # read
         print("Reading...")
         input = adc.read_u16()
@@ -25,7 +25,9 @@ try:
 
         # wait
         time.sleep(1.0)
-except:
+except Exception as ex:
+    print("Fatal error! Msg: " + str(ex))
+    print("Now playing error LED pattern.")
     while True:
         led.on()
         time.sleep(1.0)
