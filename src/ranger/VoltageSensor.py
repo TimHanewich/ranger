@@ -44,7 +44,7 @@ class VoltageSensor:
         # read raw
         raw:int = self._read_raw_weighted()
 
-        # convert to voltage estimate
+        # convert to voltage estimate, using the math above
         PercentOfRange:float = (raw - 40994) / (57093 - 40094)
         volts:float = 12.0 + ((16.8 - 12.0) * PercentOfRange)
         return volts
