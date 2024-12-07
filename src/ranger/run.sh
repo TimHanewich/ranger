@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # This is Ranger's run script
 # This simple bash script takes care of the activation of the virtual environment and firing of the python program
 # All done in one step!
