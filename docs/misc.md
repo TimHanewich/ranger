@@ -52,5 +52,14 @@ Ensure a UART serial is available: `ls /dev/serial*`
 
 Run screen to read the incoming messages on that serial connection: `sudo screen /dev/serial0 9600`
 
+## Raspbian Lite Flash on Raspberry Pi Zero W on November 25, 2024
+- Hostname: ranger.local
+- Username: tim
+- Password: rolling
+
+```
+ssh tim@ranger.local
+```
+
 ## Other things
 - Example grayscale, 160x120 photo captured and transmitted: https://i.imgur.com/Xx46fkX.png
