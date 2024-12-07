@@ -18,6 +18,11 @@ I completely designed Ranger from the ground up myself in [Blender](https://www.
 
 Ranger is completely 3D printed. You can open this in Blender and export any component from Ranger that you need as an STL before 3D-printing.
 
+## Wiring Diagram
+Ranger's wiring is somewhat complex. The wiring diagram can be found [here](./design/wiring.drawio) and can be opened in [draw.io](https://draw.io). An image snippet of it is included below as well.
+
+![wiring](https://i.imgur.com/65Fs9lN.png)
+
 ## Communication Protocol
 Ranger's communication protocol, using Azure Queue storage, is thoroughly documented [here](./docs/comms.md).
 
