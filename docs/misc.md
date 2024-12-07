@@ -38,13 +38,6 @@ In the above example, `usr/bin/python3/` is typically where Python is installed.
 
 Save and exit! Next time you reboot, that script will be run.
 
-## Fixing Motor Gear to Drive Gear Tension
-`base_center` has the holes that the TT motor holder mounts into. Naturally, where these holes are are very important. I think I got it wrong in the first iteration - there is far too much tension, even possibly damaging the motors internal gears and causing it to malfunction (stall way too early).
-
-I designed a few iterations of the `base_center` part, each one with varying distances:
-- `base_center_v1` - what I started with, and what each next one is measured against.
-- `base_center_v2` - 1mm more space - **This seems to be right!**
-
 ## Controlling the Servo
 See [this video](https://www.youtube.com/watch?v=uOQk8SJso6Q) that describes very well how the SG-90 servo can be controlled.
 
