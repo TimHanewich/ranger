@@ -12,6 +12,13 @@
     - Install Python's `psutil`: `python3 -m pip install psutil`
     - Install Python's `pillow` (`PIL`) library: `python3 -m pip install pillow`
 
+## Placing in Keys
+There are two places keys (secrets) will need to be inserted to operate:
+
+For the `command` program, simply copy + paste your Azure Queue Storage connection string in the [azure_connection_string.txt](../src/command/azure_connection_string.txt) file.
+
+For the `ranger` program, update the Azure queue information in the [sensitive.py](../src/ranger/sensitive.py) file.
+
 ## Running Ranger
 Firstly, start the `command` program, a .NET console app that acts as "Central Command" in receiving telemetry from the rover and controlling the rover. You can find the `command` program in [this folder](../src/command/).
 
