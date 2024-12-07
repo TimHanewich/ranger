@@ -63,3 +63,5 @@ ssh tim@ranger.local
 
 ## Other things
 - Example grayscale, 160x120 photo captured and transmitted: https://i.imgur.com/Xx46fkX.png
+- Pics of ranger, finished on December 7, 2024: https://imgur.com/a/Utvlsxv
+- Misc pictures I snapped while Ranger was in development, and close to being finished... Nov-Dec 2024: https://imgur.com/a/URJZ8Yn
