@@ -23,3 +23,8 @@ Ranger's communication protocol, using Azure Queue storage, is thoroughly docume
 
 ## Setting up Ranger
 Due to the Ranger program (in Python) running on a Raspberry Pi with a full Raspbian (Linux distro) environment, and being dependent on many libraries, it is slightly complicated to setup and run Ranger. However, I did my best to document the steps to both 1) set up a new RPi install to run Ranger and 2) run the Ranger program itself. You can find these steps documented [here](./docs/setup.md).
+
+## License and Disclaimer
+This project is licensed under the MIT License, which permits you to freely use, modify, and distribute this software. However, while the spirit of this project is to encourage learning and innovation, I do not condone the use of this technology for any harmful or malicious purposes. Please use responsibly.
+
+**Disclaimer**: I assume no responsibility for any issues, damages, or problems that may arise from using this project, including but not limited to wiring errors, hardware malfunctions, or any other unintended consequences. By using this project, you agree to take full responsibility for your own actions.
