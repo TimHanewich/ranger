@@ -23,4 +23,4 @@ With the `command` program running and open to receiving telemetry, now it is ti
 If you are SSH'ed into Ranger, you can simply activate the virtual environment and then run the [main.py](../src/ranger/main.py) program. This should take care of everything, including starting up the pigpiod daemon.
 
 ### Running Ranger: With `.sh` Bash Script
-The very simple bash script, [run.sh](../src/ranger/run.sh), will activate the virtual environment *and* run `main.py` for you. After giving the `run.sh` script run permissions with `chmod +x run.sh`, simply run it with `source sun.sh` or simply `./run.sh` to start the ranger program!
+The very simple bash script, [run.sh](../src/ranger/run.sh), will activate the virtual environment *and* run `main.py` for you. After giving the `run.sh` script run permissions with `chmod +x run.sh`, simply run it with `source sun.sh` or simply `./run.sh` to start the Ranger program!
