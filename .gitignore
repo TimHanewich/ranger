@@ -4,3 +4,4 @@ bin/
 obj/
 WorkingDirectory/
 *.blend1
+cronlog.txt
