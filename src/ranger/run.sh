@@ -7,7 +7,7 @@
 
 # activate the virtual environment
 echo "Ranger Run: Activating virtual environment..."
-. "/home/tim/rvenv/bin/activate" # replace with the path to your virtual environment's activate script
+source "/home/tim/rvenv/bin/activate" # replace with the path to your virtual environment's activate script
 
 # run the python program
 echo "Ranger Run: Entering Python program..."
