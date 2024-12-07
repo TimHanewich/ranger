@@ -1,3 +1,9 @@
+# High-Level Explanation
+The [src folder](../src/) contains three distinct code projects:
+- [command](../src/command/) - this is the .NET console application that the pilot (driver) can use to control Ranger. This app allows the pilot to both receive telemetry from Ranger and issue new movement commands, essentially serving as a broker between the Azure Queue Storage and the pilot.
+- [ranger](../src/ranger/) - This is a Python program that runs on the onboard Raspberry Pi, running the Ranger program.
+- [pico](../src/pico/) - In the wiring diagram, you'll find that there is a Raspberry Pi Pico also used in Ranger's design. This is because the Raspberry Pi Zero W that is used does *not* have an analog-to-digital pin, thus, it is unable to read the voltage of the battery (with a voltage divider). The Raspberry Pi Pico *does* have an analog-to-digital pin. So, the Raspberry Pi Pico runs this **very** simply program, main.py, constantly interpretting the voltage on one of the ADC pins and reporting that back to the Raspberry Pi Zero through a UART (serial) channel.
+
 ## Setting up a Raspberry Pi to run Ranger
 - Enable serial (UART) communications via `sudo rasp-config` (see instructions [here](https://timhanewich.medium.com/using-uart-between-a-raspberry-pi-pico-and-raspberry-pi-3b-raspbian-71095d1b259f))
 - `sudo apt update` & `sudo apt upgrade`
