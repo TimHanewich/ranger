@@ -1,5 +1,5 @@
 # Ranger 
-A prototype long-range RC vehicle, communicating over the world wide web, from anywhere.
+**A prototype long-range rover, controllable over the world wide web, from anywhere.**
 
 ![ranger](https://i.imgur.com/Hpy5jZg.jpeg)
 
