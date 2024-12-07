@@ -63,7 +63,6 @@ class DrivingSystem:
         s = s * -1
 
         spercent:float = (s + 1) / 2.0
-        print("Steer percent: " + str(spercent))
         width:int = int(500 + (spercent * (2500 - 500)))
         self.pwm.set_servo_pulsewidth(settings.gpio_steering, width)
 
