@@ -20,3 +20,6 @@ Ranger is completely 3D printed. You can open this in Blender and export any com
 
 ## Communication Protocol
 Ranger's communication protocol, using Azure Queue storage, is thoroughly documented [here](./docs/comms.md).
+
+## Setting up Ranger
+Due to the Ranger program (in Python) running on a Raspberry Pi with a full Raspbian (Linux distro) environment, and being dependent on many libraries, it is slightly complicated to setup and run Ranger. However, I did my best to document the steps to both 1) set up a new RPi install to run Ranger and 2) run the Ranger program itself. You can find these steps documented [here](./docs/setup.md).
