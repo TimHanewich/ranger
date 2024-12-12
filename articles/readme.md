@@ -1,0 +1,57 @@
+# How I Built a Long-Range Internet-Controlled Rover
+
+## Chapters
+- The idea (what I set out to build)
+    - Goals
+        - Long-range, controlled from anywhere. Like mars/moon rover.
+        - Bidirectional, long-lasting communication protocol
+        - Transmits photos via webcam, but doesnt use too much bandwidth
+        - A lot of battery life
+    - The solution:
+        - Use phone for tethering
+        - Use 4S LiPo battery, adjusted to 5V
+        - Capture photos using `ffmpeg`, but perform encoding
+        - Communicate over Azure Queue Storage.
+    - I will explain all of these in more detail in the chapters to come
+- Design
+    - Components used: TT Motor, SG-90 Servo, 608 bearings, Logitech C270
+    - Borrowed from PYPER
+    - Challenge: this has to be bigger to fit more. Multiple parts put together.
+    - 3D design:
+        - Steering system
+            - Tye rode
+            - Bearings within wheels
+            - Thread locker to prevent nut from slipping
+        - Drive system
+            - TT Motor mount
+            - Drive axle mating to shaft
+            - 608 bearing holders
+            - Inner diameter of 608 bearing is too wide for 5mm shaft, so small "adapter" I made
+            - Shaft "shoe" ends in hexagonal shape and mounts a wheel.
+        - Webcam platform
+        - This will leave space on the body to put holes into where individual components can be screwed in securely.
+- Electrical wiring
+    - LM2596 reduces high voltag of 4S LiPo to regulated 5V 
+    - L293D is used to drive TT motor
+    - SG-90 is used for steering
+    - A Raspberry Pi Zero W serves as the "brain" and interfaces w/ L293D and SG-90 signal wire.
+    - Voltage divider reduces 4S LiPo down to 17%, 16.8V = 2.94, etc. Pico used to send voltage.
+    - USB adapter allows Logitech C270 to be connected.
+- Communication Protocol: Azure Queue Storage
+    - Two separate queues
+    - JSON encoded
+    - REST API, with SAS URL, is actually quite simple. Share docs.
+- Capturing photos
+    - ffmpeg @ low FPS
+    - encoding images in base64, grayscale
+- Code  
+    - Ranger
+        - DrivingSystem for steer + drive
+        - MovementCommand for encoding movement
+        - Wrote my own Azure Queue SAS library
+        - Voltage sensor weighted average filter to 'smooth' out
+        - Using psutil for capturing system data
+        - Threading to run both at once
+    - Command
+        - Console.Spectre
+        - Run in parallel, one opening and decompressing, one sending
